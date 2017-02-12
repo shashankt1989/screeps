@@ -51,7 +51,7 @@ module.exports.loop = function () {
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 3) {
             currSpawn.createCreep([ WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY
+                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Explorer - " + Game.time.toString(), {role: 'explorer'});
         }
