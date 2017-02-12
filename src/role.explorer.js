@@ -2,9 +2,14 @@ var roleExplorer = {
 
     run: function(creep, spawnRoom) {
         if(creep.carry.energy < creep.carryCapacity) {
-            var source = new RoomPosition(11,21,"W81N8");
-            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+            if(creep.pos.isNearTo(new RoomPosition(11,21,"W81N8")))
+            {
+                var source = new RoomPosition(11,21,"W81N8");
+                creep.harvest(source);
+            }
+            else
+            { 
+                creep.moveTo(new RoomPosition(11,21,"W81N8"), {visualizePathStyle: {stroke: '#ff0000'}});
             }
         }
         else {
