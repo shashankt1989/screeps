@@ -37,12 +37,12 @@ module.exports.loop = function () {
         if(upgraders.length < 1) {
             Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
-        else if(upgraders.length < 6) {
+        else if(upgraders.length < 3) {
             Game.spawns['Spawn1'].createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
         
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        if(builders.length < 4 && buildCount > 0) {
+        if(builders.length < 6 && buildCount > 0) {
             Game.spawns['Spawn1'].createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Builder - " + Game.time.toString(), {role: 'builder'});
         }
         
