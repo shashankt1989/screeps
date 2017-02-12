@@ -16,7 +16,7 @@ var roleUpgrader = {
             }
         }
         else {
-            var targets = spawnRoom.find(FIND_STRUCTURES, {
+            var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return structure.structureType == STRUCTURE_STORAGE;
                     }
