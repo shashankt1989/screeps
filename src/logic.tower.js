@@ -1,9 +1,9 @@
 var logicTower = {
 
-    run: function(tower) {
+    run: function(tower,currRoom) {
 
         // If any invader present then attack them
-        var target = tower.room.find(FIND_HOSTILE_CREEPS);
+        var target = currRoom.find(FIND_HOSTILE_CREEPS);
         if (target.length > 0)
         {
             tower.attack(target[0]);
