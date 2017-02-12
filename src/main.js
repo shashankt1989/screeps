@@ -3,7 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepair = require('role.repair');
 var spawnUtility = require('spawn.utility');
-var logicTower = require('logic.Tower');
+var logicTower = require('logic.tower');
 
 module.exports.loop = function () {
 
