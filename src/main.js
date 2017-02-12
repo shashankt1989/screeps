@@ -4,6 +4,7 @@ var roleBuilder = require('role.builder');
 var roleRepair = require('role.repair');
 var spawnUtility = require('spawn.utility');
 var logicTower = require('logic.tower');
+var roleExplorer = require('role.explorer');
 
 module.exports.loop = function () {
 
@@ -16,7 +17,6 @@ module.exports.loop = function () {
 
     var currSpawn = Game.spawns['Spawn1']; 
     var currRoom = currSpawn.room;
-
 
     var towers = currRoom.find(FIND_STRUCTURES, {
                 filter: (structure) => {
@@ -41,9 +41,14 @@ module.exports.loop = function () {
     }
     else 
     {
-        if(harvesters.length < 5) {
+        if(harvesters.length < 4) {
             currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
         } 
+        
+        var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
+        if(explorers.length < 4) {
+            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Explorer - " + Game.time.toString(), {role: 'explorer'});
+        }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
@@ -69,6 +74,9 @@ module.exports.loop = function () {
         
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
+        }
+        if(creep.memory.role == 'explorer') {
+            roleExplorer.run(creep);
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
