@@ -17,7 +17,8 @@ var roleRepair = {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_ROAD ||
                         structure.structureType == STRUCTURE_WALL ||
-                        structure.structureType == STRUCTURE_TOWER) && structure.hits < (structure.hitsMax /2) && structure.hits < 25000
+                        structure.structureType == STRUCTURE_RAMPART ||
+                        structure.structureType == STRUCTURE_TOWER) && structure.hits < (structure.hitsMax /2) && structure.hits < 50000
                 }
             });
             
