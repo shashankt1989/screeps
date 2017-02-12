@@ -5,20 +5,18 @@ var roleRepair = {
 
         if(creep.memory.repairing && creep.carry.energy == 0) {
             creep.memory.repairing = false;
-            creep.say('🔄 harvest');
         }
         if(!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.repairing = true;
-            creep.say('🚧 repair');
         }
 
         if(creep.memory.repairing) {
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_ROAD ||
-                        structure.structureType == STRUCTURE_WALL ||
-                        structure.structureType == STRUCTURE_RAMPART ||
-                        structure.structureType == STRUCTURE_TOWER) && structure.hits < (structure.hitsMax /2) && structure.hits < 50000
+                    return (structure.structureType == STRUCTURE_WALL ||
+                        structure.structureType == STRUCTURE_TOWER ||
+                        structure.structureType == STRUCTURE_ROAD ||
+                        structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.5) && structure.hits < 50000
                 }
             });
             
