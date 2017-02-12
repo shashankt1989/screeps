@@ -76,7 +76,7 @@ module.exports.loop = function () {
             roleHarvester.run(creep);
         }
         if(creep.memory.role == 'explorer') {
-            roleExplorer.run(creep);
+            roleExplorer.run(creep,currRoom);
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
