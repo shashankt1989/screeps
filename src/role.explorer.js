@@ -4,8 +4,9 @@ var roleExplorer = {
         if(creep.carry.energy < creep.carryCapacity) {
             if(creep.pos.isNearTo(new RoomPosition(11,21,"W81N8")))
             {
-                var source = new RoomPosition(11,21,"W81N8");
-                creep.harvest(source);
+                var sources = creep.room.find(FIND_SOURCES);
+                if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ff0000'}});
             }
             else
             { 
