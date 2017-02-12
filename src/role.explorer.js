@@ -2,7 +2,7 @@ var roleExplorer = {
 
     run: function(creep, spawnRoom, targetRoom) {
         if(creep.carry.energy < creep.carryCapacity) {
-            if(creep.room != targetRoom)
+            if(creep.room.name != targetRoom)
             {
                 var exitDir = Game.map.findExit(creep.room, targetRoom);
                 var exit = creep.pos.findClosestByRange(exitDir);

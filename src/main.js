@@ -42,12 +42,12 @@ module.exports.loop = function () {
     else 
     {
         if(harvesters.length < 4) {
-            currSpawn.createCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
+            currSpawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
         } 
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
-            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Explorer - " + Game.time.toString(), {role: 'explorer'});
+            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Explorer - " + Game.time.toString(), {role: 'explorer'});
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
