@@ -1,23 +1,25 @@
 var roleExplorer = {
 
-    run: function(creep, spawnRoom) {
+    run: function(creep, spawnRoom, targetRoom) {
         if(creep.carry.energy < creep.carryCapacity) {
-            if(creep.pos.isNearTo(new RoomPosition(11,21,"W81N8")))
+            if(creep.room == spawnRoom)
+            {
+                var exitDir = Game.map.findExit(creep.room, targetRoom);
+                var exit = creep.pos.findClosestByRange(exitDir);
+                creep.moveTo(exit);
+            }
+            else
             {
                 var sources = creep.room.find(FIND_SOURCES);
                 if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ff0000'}});
                 }
             }
-            else
-            { 
-                creep.moveTo(new RoomPosition(11,21,"W81N8"), {visualizePathStyle: {stroke: '#ff0000'}});
-            }
         }
         else {
             if(creep.room != spawnRoom)
             {
-                var exitDir =Game.map.findExit(creep.room, spawnRoom);
+                var exitDir = Game.map.findExit(creep.room, spawnRoom);
                 var exit = creep.pos.findClosestByRange(exitDir);
                 creep.moveTo(exit);
             }
@@ -25,7 +27,7 @@ var roleExplorer = {
             {
                 var targets = spawnRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_CONTAINER) && structure.energy < structure.energyCapacity;
+                        return structure.structureType == STRUCTURE_STORAGE;
                     }
                 });
                 if(targets.length > 0) {
