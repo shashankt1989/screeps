@@ -31,7 +31,7 @@ module.exports.loop = function () {
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             if(creep.memory.role == "builder")
-                creep.memory.role = 'upgrader';
+                creep.memory.role = 'explorer';
         }
     }
 
@@ -76,7 +76,7 @@ module.exports.loop = function () {
             roleHarvester.run(creep);
         }
         if(creep.memory.role == 'explorer') {
-            roleExplorer.run(creep,currRoom,"W82N9");
+            roleExplorer.run(creep,currRoom,"W81N8");
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
