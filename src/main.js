@@ -43,7 +43,7 @@ module.exports.loop = function () {
     {
         if(harvesters.length < 3) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Harvester - " + Game.time.toString(), {role: 'harvester'});
         } 
@@ -51,7 +51,7 @@ module.exports.loop = function () {
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 3) {
             currSpawn.createCreep([ WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Explorer - " + Game.time.toString(), {role: 'explorer'});
         }
@@ -62,7 +62,7 @@ module.exports.loop = function () {
         }
         else if(upgraders.length < 3) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
@@ -70,7 +70,7 @@ module.exports.loop = function () {
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if(builders.length < 2 && buildCount > 0) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Builder - " + Game.time.toString(), {role: 'builder'});
         }
