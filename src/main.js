@@ -3,6 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepair = require('role.repair');
 var spawnUtility = require('spawn.utility');
+var logicTower = require('logic.Tower');
 
 module.exports.loop = function () {
 
@@ -12,6 +13,16 @@ module.exports.loop = function () {
             console.log('Clearing non-existing creep memory:', name);
         }
     }
+
+    var towers = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_TOWER);
+                }
+            });
+    for (var tower in towers)
+    {
+        logicTower.run(tower);
+    }    
     
     var buildCount = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length;
     if(buildCount == 0)
