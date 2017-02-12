@@ -42,12 +42,12 @@ module.exports.loop = function () {
     else 
     {
         if(harvesters.length < 4) {
-            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
+            currSpawn.createCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
         } 
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
-            currSpawn.createCreep([WORK,CARRY,CARRY,MOVE,MOVE,MOVE], "Explorer - " + Game.time.toString(), {role: 'explorer'});
+            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Explorer - " + Game.time.toString(), {role: 'explorer'});
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
@@ -55,17 +55,17 @@ module.exports.loop = function () {
             currSpawn.createCreep([WORK,CARRY,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
         else if(upgraders.length < 3) {
-            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
+            currSpawn.createCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
         
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if(builders.length < 6 && buildCount > 0) {
-            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], "Builder - " + Game.time.toString(), {role: 'builder'});
+            currSpawn.createCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], "Builder - " + Game.time.toString(), {role: 'builder'});
         }
         
         var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair');
         if(repairs.length < 3) {
-            currSpawn.createCreep([WORK,WORK,CARRY,MOVE,MOVE], "Repair - " + Game.time.toString(), {role: 'repair'});
+            currSpawn.createCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE], "Repair - " + Game.time.toString(), {role: 'repair'});
         }
     }
     

@@ -12,8 +12,7 @@ var logicTower = {
         {
             targets = currRoom.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_WALL || 
-                        structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /2) && structure.hits < 50000
+                    return (structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.3) && structure.hits < 50000
                 }
             });
             
