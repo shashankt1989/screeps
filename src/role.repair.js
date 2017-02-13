@@ -11,20 +11,32 @@ var roleRepair = {
         }
 
         if(creep.memory.repairing) {
+            if(creep.memory.fillingTower)
+            {
+                var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity
+                    }
+                });
+            }
+            else
+            {
+                var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_TOWER) && structure.energy < (structure.energyCapacity/1.5)
+                    }
+                });
+            }
 
-            var targets = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity
-                }
-            });
-            
             if(targets.length > 0) {
+                creep.memory.fillingTower = true;
                 if(creep.transfer(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
                 }
             }
             else
             {
+                creep.memory.fillingTower = false;
                 targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_WALL ||
