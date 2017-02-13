@@ -32,15 +32,15 @@ var spawnUtility = {
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
-            typeArr.push("WORK");
+            typeArr.push(WORK);
         }
         for(i=0;i<carryCount;i++)
         {
-            typeArr.push("CARRY");
+            typeArr.push(CARRY);
         }
         for(i=0;i<moveCount;i++)
         {
-            typeArr.push("MOVE");
+            typeArr.push(MOVE);
         }
         var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom});
         if(_.isString(retVal))
