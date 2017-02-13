@@ -15,6 +15,10 @@ module.exports.loop = function () {
         }
     }
 
+    // testing zone
+        
+    // testing zone ends
+
     var currSpawn = Game.spawns['Spawn1']; 
     var currRoom = currSpawn.room;
 

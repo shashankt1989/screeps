@@ -29,7 +29,12 @@ var spawnUtility = {
     },
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount) {
-
+        var typeObj = [];
+        for(i=0;i<workCount;i++)
+        {
+            typeObj += WORK;
+        }
+        console.log(typeObj);
     }
 };
 
