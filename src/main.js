@@ -41,7 +41,7 @@ module.exports.loop = function () {
     }
     else 
     {
-        if(harvesters.length < 3) {
+        if(harvesters.length < 4) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
