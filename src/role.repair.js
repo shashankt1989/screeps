@@ -11,32 +11,41 @@ var roleRepair = {
         }
 
         if(creep.memory.repairing) {
+            // continue filling tower to full energy if were doing earlier
+            var currTower = null;
             if(creep.memory.fillingTower)
             {
-                var targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity
-                    }
-                });
+                currTower = Game.getObjectById(creep.memory.fillingTower);
+                if(!currTower || currTower.energy == currTower.energyCapacity)
+                {
+                    currTower = null;
+                    creep.memory.fillingTower = null;
+                }
             }
-            else
+            // find a new tower if we dont have an existing one
+            if(!creep.memory.fillingTower)
             {
                 var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_TOWER) && structure.energy < (structure.energyCapacity/1.5)
                     }
                 });
+                if(targets.length > 0)
+                {
+                    currTower = targets[0];
+                    creep.memory.fillingTower = currTower.id;
+                }
             }
-
-            if(targets.length > 0) {
-                creep.memory.fillingTower = true;
-                if(creep.transfer(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
+            // fill the target tower if any
+            if(currTower) {
+                if(creep.transfer(currTower,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(currTower, {visualizePathStyle: {stroke: '#00aa00'}});
                 }
             }
             else
             {
-                creep.memory.fillingTower = false;
+                // try to find something to repair
+                // if already repairing something then check if it still needs repairs
                 if(creep.memory.target)
                 {
                     var currRepairTarget = Game.getObjectById(creep.memory.target);
@@ -46,9 +55,10 @@ var roleRepair = {
                         creep.memory.target = null;
                     }
                 }
+                // try to find a new target to repair
                 if(!creep.memory.target)
                 {
-                    targets = creep.room.find(FIND_STRUCTURES, {
+                    var targets = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_WALL ||
                                 structure.structureType == STRUCTURE_TOWER ||
@@ -61,6 +71,7 @@ var roleRepair = {
                     }
 
                 }    
+                // if any target to repair then go for it else switch to upgrader
                 if(creep.memory.target) {
                     var currRepairTarget = Game.getObjectById(creep.memory.target);
                     if(creep.repair(currRepairTarget) == ERR_NOT_IN_RANGE) {
@@ -85,10 +96,12 @@ var roleRepair = {
                 }
             }
             else {
-                targets = creep.room.find(FIND_SOURCES);
-                if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0000'}});
-                }
+                // out of energy in storage. try to repair with whatever energy present.
+                // else move to neutral location
+                if(creep.carry.energy >0)
+                    creep.memory.repairing = true;
+                else
+                    creep.moveTo(29,14);
             }
         }
     }

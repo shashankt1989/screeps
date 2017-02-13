@@ -1,8 +1,8 @@
 var roleUpgrader = {
 
-    /** @param {Creep} creep **/
     run: function(creep) {
 
+        // upgrading but out of energy
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
         }
@@ -16,6 +16,7 @@ var roleUpgrader = {
             }
         }
         else {
+            // find a storage with non zero energy
             var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY] > 0;
@@ -27,10 +28,11 @@ var roleUpgrader = {
                 }
             }
             else {
-                targets = creep.room.find(FIND_SOURCES);
-                if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0000'}});
-                }
+                // go and upgrade if any energy present or move to neutral location
+                if(creep.carry.energy >0)
+                    creep.memory.upgrading = true;
+                else
+                    creep.moveTo(36,12);
             }
         }
     }
