@@ -49,7 +49,7 @@ var roleRepair = {
                 if(creep.memory.target)
                 {
                     var currRepairTarget = Game.getObjectById(creep.memory.target);
-                    if(!currRepairTarget || currRepairTarget.hits > Math.min(currRepairTarget.hitsMax,50000))
+                    if(!currRepairTarget || currRepairTarget.hits >= Math.min(currRepairTarget.hitsMax,50000))
                     {
                         // done with this structure find a new one
                         creep.memory.target = null;
