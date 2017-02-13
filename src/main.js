@@ -40,14 +40,14 @@ module.exports.loop = function () {
     }
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.explorerth2<81)1 {
+    if(harvesters.length<1) {
         spawnUtility.createCreep(currSpawn, 'harvester',1,1,1);
     }
     else 
     {
         if(harvesters.length < 3) {
             spawnUtility.createCreep(currSpawn, 'harvester',4,7,6);
-        } 
+        }
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
