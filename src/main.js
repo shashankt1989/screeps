@@ -36,12 +36,12 @@ module.exports.loop = function () {
     }
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.length < 2) {
+    if(harvesters.length < 1) {
         currSpawn.createCreep([WORK,CARRY,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
     }
     else 
     {
-        if(harvesters.length < 4) {
+        if(harvesters.length < 3) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
@@ -60,7 +60,7 @@ module.exports.loop = function () {
         if(upgraders.length < 1) {
             currSpawn.createCreep([WORK,CARRY,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
-        else if(upgraders.length < 4) {
+        else if(upgraders.length < 2) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
