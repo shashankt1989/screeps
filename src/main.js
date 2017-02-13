@@ -16,7 +16,7 @@ module.exports.loop = function () {
     }
 
     // testing zone
-        
+
     // testing zone ends
 
     var currSpawn = Game.spawns['Spawn1']; 
@@ -40,50 +40,36 @@ module.exports.loop = function () {
     }
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.length < 1) {
-        currSpawn.createCreep([WORK,CARRY,MOVE], "Harvester - " + Game.time.toString(), {role: 'harvester'});
+    if(harvesters.explorerth2<81)1 {
+        spawnUtility.createCreep(currSpawn, 'harvester',1,1,1);
     }
     else 
     {
         if(harvesters.length < 3) {
-            currSpawn.createCreep([ WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                                    MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
-                                ], "Harvester - " + Game.time.toString(), {role: 'harvester'});
+            spawnUtility.createCreep(currSpawn, 'harvester',4,7,6);
         } 
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
-            currSpawn.createCreep([ WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                                    MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
-                                ], "Explorer - " + Game.time.toString(), {role: 'explorer'});
+            spawnUtility.createCreep(currSpawn, 'explorer',2,8,11);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
-            currSpawn.createCreep([WORK,CARRY,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
+            spawnUtility.createCreep(currSpawn, 'upgrader',1,1,2);
         }
         else if(upgraders.length < 2) {
-            currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                                    MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
-                                ], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
+            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,8);
         }
         
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if(builders.length < 2 && buildCount > 0) {
-            currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
-                                    CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                                    MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
-                                ], "Builder - " + Game.time.toString(), {role: 'builder'});
+            spawnUtility.createCreep(currSpawn, 'builder',5,7,8);
         }
         
         var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair');
         if(repairs.length < 2) {
-            currSpawn.createCreep([ WORK,
-                                    CARRY,
-                                    MOVE,MOVE], "Repair - " + Game.time.toString(), {role: 'repair'});
+            spawnUtility.createCreep(currSpawn, 'repair',1,1,2);
         }
     }
     

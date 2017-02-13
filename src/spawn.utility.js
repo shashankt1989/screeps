@@ -29,12 +29,24 @@ var spawnUtility = {
     },
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount) {
-        var typeObj = [];
+        var typeArr = [];
         for(i=0;i<workCount;i++)
         {
-            typeObj += WORK;
+            typeArr.push("WORK");
         }
-        console.log(typeObj);
+        for(i=0;i<carryCount;i++)
+        {
+            typeArr.push("CARRY");
+        }
+        for(i=0;i<moveCount;i++)
+        {
+            typeArr.push("MOVE");
+        }
+        var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role});
+        if(retVal.startsWith(role))
+        {
+            console.log("Creating new creep: " + retVal);
+        }
     }
 };
 
