@@ -64,7 +64,7 @@ module.exports.loop = function () {
         
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if(builders.length < 2 && buildCount > 0) {
-            spawnUtility.createCreep(currSpawn, 'builder',5,7,8);
+            spawnUtility.createCreep(currSpawn, 'builder',5,7,8,currRoom.name);
         }
         
         var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair');
