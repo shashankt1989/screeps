@@ -42,7 +42,7 @@ module.exports.loop = function () {
     else 
     {
         if(harvesters.length < 3) {
-            currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
+            currSpawn.createCreep([ WORK,WORK,WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
                                 ], "Harvester - " + Game.time.toString(), {role: 'harvester'});
