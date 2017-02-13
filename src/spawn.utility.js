@@ -26,6 +26,10 @@ var spawnUtility = {
         {
             
         }
+    },
+
+    createCreep: function(spawn,role,workCount,carryCount,moveCount) {
+
     }
 };
 

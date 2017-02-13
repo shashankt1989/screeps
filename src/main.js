@@ -31,7 +31,7 @@ module.exports.loop = function () {
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             if(creep.memory.role == "builder")
-                creep.memory.role = 'explorer';
+                creep.memory.role = 'upgrader';
         }
     }
 
@@ -49,7 +49,7 @@ module.exports.loop = function () {
         } 
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-        if(explorers.length < 3) {
+        if(explorers.length < 4) {
             currSpawn.createCreep([ WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
@@ -60,7 +60,7 @@ module.exports.loop = function () {
         if(upgraders.length < 1) {
             currSpawn.createCreep([WORK,CARRY,MOVE,MOVE], "Upgrader - " + Game.time.toString(), {role: 'upgrader'});
         }
-        else if(upgraders.length < 3) {
+        else if(upgraders.length < 4) {
             currSpawn.createCreep([ WORK,WORK,WORK,WORK,WORK,
                                     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                                     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE
@@ -90,7 +90,7 @@ module.exports.loop = function () {
             roleHarvester.run(creep);
         }
         if(creep.memory.role == 'explorer') {
-            roleExplorer.run(creep,currRoom,"W82N9");
+            roleExplorer.run(creep,currRoom,"W81N8");
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);

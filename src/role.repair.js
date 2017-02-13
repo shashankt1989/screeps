@@ -37,18 +37,32 @@ var roleRepair = {
             else
             {
                 creep.memory.fillingTower = false;
-                targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_WALL ||
-                            structure.structureType == STRUCTURE_TOWER ||
-                            structure.structureType == STRUCTURE_ROAD ||
-                            structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.5) && structure.hits < 50000
+                if(creep.memory.target)
+                {
+                    if(creep.memory.target.hits > Math.min(creep.memory.target.hitsMax,50000))
+                    {
+                        // done with this structure find a new one
+                        creep.memory.target = null;
                     }
-                });
-                
-                if(targets.length > 0) {
-                    if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
+                }
+                if(!creep.memory.target)
+                {
+                    targets = creep.room.find(FIND_STRUCTURES, {
+                        filter: (structure) => {
+                            return (structure.structureType == STRUCTURE_WALL ||
+                                structure.structureType == STRUCTURE_TOWER ||
+                                structure.structureType == STRUCTURE_ROAD ||
+                                structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.5) && structure.hits < 50000
+                        }
+                    });
+                    if(targets.length > 0) {
+                        creep.memory.target = targets[0];
+                    }
+
+                }    
+                if(creep.memory.target) {
+                    if(creep.repair(creep.memory.target) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.memory.target, {visualizePathStyle: {stroke: '#00aa00'}});
                     }
                 }
                 else
