@@ -41,6 +41,15 @@ module.exports.loop = function () {
             spawnUtility.createCreep(currSpawn, 'harvester',4,7,6);
         }
         
+        var rooms = ["W82N9"];
+        for(var room of rooms)
+        {
+            var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
+            if(miners.length < 2) {
+                spawnUtility.createCreep(currSpawn, 'repair',4,5,8,room);
+            }
+        }
+        
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
             spawnUtility.createCreep(currSpawn, 'explorer',3,7,9);
@@ -70,7 +79,6 @@ module.exports.loop = function () {
                 spawnUtility.createCreep(currSpawn, 'repair',2,2,2,room);
             }
         }
-
         
     }
     
@@ -79,6 +87,9 @@ module.exports.loop = function () {
         
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
+        }
+        if(creep.memory.role == 'miner') {
+            roleMiner.run(creep);
         }
         if(creep.memory.role == 'explorer') {
             roleExplorer.run(creep,currRoom,"W82N9");
