@@ -5,6 +5,7 @@ var roleRepair = require('role.repair');
 var spawnUtility = require('spawn.utility');
 var logicTower = require('logic.tower');
 var roleExplorer = require('role.explorer');
+var roleMiner = require('role.miner');
 
 module.exports.loop = function () {
 
