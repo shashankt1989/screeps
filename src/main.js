@@ -57,16 +57,20 @@ module.exports.loop = function () {
         for(var room of rooms)
         {
             var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.targetRoom == room);
-            var buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
+            var buildCount = 0;
+            if(Game.rooms[room])
+                buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
             if(builders.length < 2 && buildCount > 0) {
                 spawnUtility.createCreep(currSpawn, 'builder',5,7,6,room);
             }
+
+            var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair' && creep.memory.targetRoom == room);
+            if(repairs.length < 2) {
+                spawnUtility.createCreep(currSpawn, 'repair',2,2,2,room);
+            }
         }
 
-        var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair');
-        if(repairs.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'repair',2,2,2);
-        }
+        
     }
     
     for(var name in Game.creeps) {
