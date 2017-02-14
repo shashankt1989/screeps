@@ -10,9 +10,9 @@ var roleExplorer = {
             }
             else
             {
-                var sources = creep.room.find(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
-                if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ff0000'}});
+                var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
+                if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
             }
         }
