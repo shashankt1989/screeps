@@ -46,7 +46,7 @@ module.exports.loop = function () {
         {
             var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
             if(miners.length < 2) {
-                spawnUtility.createCreep(currSpawn, 'repair',4,5,8,room);
+                spawnUtility.createCreep(currSpawn, 'miner',4,5,8,room);
             }
         }
 
