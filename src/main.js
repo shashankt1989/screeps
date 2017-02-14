@@ -54,7 +54,7 @@ module.exports.loop = function () {
         }
 
         var rooms = [currRoom.name, "W82N9"];
-        for(var room in rooms)
+        for(var room of rooms)
         {
             var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.targetRoom == room);
             var buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
