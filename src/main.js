@@ -6,6 +6,7 @@ var spawnUtility = require('spawn.utility');
 var logicTower = require('logic.tower');
 var roleExplorer = require('role.explorer');
 var roleMiner = require('role.miner');
+var roleClaim = require('role.claim');
 
 module.exports.loop = function () {
 
@@ -33,12 +34,12 @@ module.exports.loop = function () {
     
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length<1) {
-        spawnUtility.createCreep(currSpawn, 'harvester',1,1,1);
+        spawnUtility.createCreep(currSpawn, 'harvester',1,1,1,0);
     }
     else 
     {
         if(harvesters.length < 3) {
-            spawnUtility.createCreep(currSpawn, 'harvester',4,7,6);
+            spawnUtility.createCreep(currSpawn, 'harvester',4,7,6,0);
         }
         
         var rooms = ["W82N9"];
@@ -46,21 +47,26 @@ module.exports.loop = function () {
         {
             var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
             if(miners.length < 2) {
-                spawnUtility.createCreep(currSpawn, 'miner',4,5,8,room);
+                spawnUtility.createCreep(currSpawn, 'miner',4,5,8,0,room);
             }
+
+            var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
+            if(claimers.length < 1) {
+                spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
+            }            
         }
 
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'explorer',1,11,6);
+            spawnUtility.createCreep(currSpawn, 'explorer',1,11,6,0);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2);
+            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2,0);
         }
         else if(upgraders.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6);
+            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6,0);
         }
 
         var rooms = [currRoom.name, "W82N9"];
@@ -71,12 +77,12 @@ module.exports.loop = function () {
             if(Game.rooms[room])
                 buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
             if(builders.length < 2 && buildCount > 0) {
-                spawnUtility.createCreep(currSpawn, 'builder',5,7,6,room);
+                spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
             }
 
             var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair' && creep.memory.targetRoom == room);
             if(repairs.length < 2) {
-                spawnUtility.createCreep(currSpawn, 'repair',2,2,2,room);
+                spawnUtility.createCreep(currSpawn, 'repair',2,2,2,0,room);
             }
         }
         
@@ -102,6 +108,9 @@ module.exports.loop = function () {
         }
         if(creep.memory.role == 'repair') {
             roleRepair.run(creep);
+        }
+        if(creep.memory.role == 'claim') {
+            roleClaim.run(creep);
         }
         
     }

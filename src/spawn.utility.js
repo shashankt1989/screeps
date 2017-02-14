@@ -28,7 +28,7 @@ var spawnUtility = {
         }
     },
 
-    createCreep: function(spawn,role,workCount,carryCount,moveCount,targetRoom) {
+    createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom) {
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
@@ -41,6 +41,10 @@ var spawnUtility = {
         for(i=0;i<moveCount;i++)
         {
             typeArr.push(MOVE);
+        }
+        for(i=0;i<claimCount;i++)
+        {
+            typeArr.push(CLAIM);
         }
         var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom});
         if(_.isString(retVal))
