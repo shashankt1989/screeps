@@ -49,10 +49,10 @@ module.exports.loop = function () {
                 spawnUtility.createCreep(currSpawn, 'repair',4,5,8,room);
             }
         }
-        
+
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-        if(explorers.length < 4) {
-            spawnUtility.createCreep(currSpawn, 'explorer',3,7,9);
+        if(explorers.length < 2) {
+            spawnUtility.createCreep(currSpawn, 'explorer',1,11,6);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');

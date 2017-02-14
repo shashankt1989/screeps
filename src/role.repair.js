@@ -100,7 +100,7 @@ var roleRepair = {
                                     structure.structureType == STRUCTURE_CONTAINER ||) && structure.store[RESOURCE_ENERGY] > 0;
                         }
                     });
-                if(target > 0) {
+                if(target) {
                     if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target);
                     }
