@@ -58,7 +58,7 @@ var roleRepair = {
                 // try to find a new target to repair
                 if(!creep.memory.target)
                 {
-                    var targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                    var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_WALL ||
                                 structure.structureType == STRUCTURE_TOWER ||
@@ -66,8 +66,8 @@ var roleRepair = {
                                 structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.5) && structure.hits < 50000
                         }
                     });
-                    if(targets.length > 0) {
-                        creep.memory.target = targets[0].id;
+                    if(target) {
+                        creep.memory.target = target.id;
                     }
 
                 }    
