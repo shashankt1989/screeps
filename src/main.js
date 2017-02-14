@@ -51,7 +51,7 @@ module.exports.loop = function () {
             }
 
             var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
-            if(claimers.length < 1) {
+            if(claimers.length < 2) {
                 spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
             }            
         }
