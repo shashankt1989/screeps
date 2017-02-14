@@ -29,16 +29,7 @@ module.exports.loop = function () {
             });
     towers.forEach(tower => logicTower.run(tower,currRoom));   
 
-    var buildCount = currRoom.find(FIND_CONSTRUCTION_SITES).length;
-    if(buildCount == 0)
-    {
-        for(var name in Game.creeps) {
-            var creep = Game.creeps[name];
-            if(creep.memory.role == "builder")
-                creep.memory.role = 'upgrader';
-        }
-    }
-
+    
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length<1) {
         spawnUtility.createCreep(currSpawn, 'harvester',1,1,1);
@@ -51,25 +42,30 @@ module.exports.loop = function () {
         
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 4) {
-            spawnUtility.createCreep(currSpawn, 'explorer',2,8,11);
+            spawnUtility.createCreep(currSpawn, 'explorer',3,7,9);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',1,1,2);
+            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2);
         }
         else if(upgraders.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,8);
+            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6);
         }
-        
-        var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        if(builders.length < 2 && buildCount > 0) {
-            spawnUtility.createCreep(currSpawn, 'builder',5,7,8,currRoom.name);
+
+        var rooms = [currRoom.name, "W82N9"];
+        for(var room in rooms)
+        {
+            var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.targetRoom == room);
+            var buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
+            if(builders.length < 2 && buildCount > 0) {
+                spawnUtility.createCreep(currSpawn, 'builder',5,7,6,room);
+            }
         }
-        
+
         var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair');
         if(repairs.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'repair',1,1,2);
+            spawnUtility.createCreep(currSpawn, 'repair',2,2,2);
         }
     }
     

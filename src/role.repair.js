@@ -58,7 +58,7 @@ var roleRepair = {
                 // try to find a new target to repair
                 if(!creep.memory.target)
                 {
-                    var targets = creep.room.find(FIND_STRUCTURES, {
+                    var targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: (structure) => {
                             return (structure.structureType == STRUCTURE_WALL ||
                                 structure.structureType == STRUCTURE_TOWER ||
