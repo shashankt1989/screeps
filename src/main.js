@@ -56,9 +56,9 @@ module.exports.loop = function () {
 
             var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
             var claimTicks = 9999;
-            if(Game.room['room'])
+            if(Game.room[room])
             {
-                claimTicks = Game.room['room'].controller.reservation['ticksToEnd']; 
+                claimTicks = Game.room[room].controller.reservation['ticksToEnd']; 
             }
             if(claimers.length < (claimTicks<1000 ? 2 : 1) ) {
                 spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
