@@ -29,10 +29,11 @@ var spawnUtility = {
         var sources = room.find(FIND_DROPPED_RESOURCES);
         if(sources.length > 0)
         {
-            for(var source in sources)
+            for(var source of sources)
             {
+
                 var creeps = source.pos.findInRange(FIND_MY_CREEPS, range, { filter: function(creep) {
-                    (   creep.memory.role == 'explorer' ||
+                    return (   creep.memory.role == 'explorer' ||
                         creep.memory.role == 'collector' ||
                         creep.memory.role == 'harvester' ||
                         creep.memory.role == 'miner') && creep.carry.energy < creep.carryCapacity
