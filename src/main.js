@@ -46,7 +46,7 @@ module.exports.loop = function () {
                                 Math.max(1,currEnergy/200), // work count
                                 Math.max(1,currEnergy/200), // carry count
                                 Math.max(1,currEnergy/200), // move count
-                                0);
+                                0, currRoom.name);
         spawnCreeps = false;
     }
     else if(providers.length == 0)
@@ -54,10 +54,10 @@ module.exports.loop = function () {
         // create an emergency provider
         var currEnergy = Math.min(currRoom.energyAvailable,800);
         spawnUtility.createCreep(currSpawn, 'provider',
-                                1, // work count
-                                Math.max(1,(2*(currEnergy-100))/150 ), // carry count
-                                Math.max(1,(currEnergy-100)/150 ), // move count
-                                0);
+                                0, // work count
+                                Math.max(1,(2*currEnergy)/150 ), // carry count
+                                Math.max(1,currEnergy/150 ), // move count
+                                0, currRoom.name);
         spawnCreeps = false;
     }
     else
@@ -75,11 +75,11 @@ module.exports.loop = function () {
     {
         // keeping logic separate of spawn miners as they are sure to have roads which means they need less move parts.
         if(currRoomMiners.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0);
+            spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0, currRoom.name);
         }
         
         if(providers.length < 2 && currRoom.energyAvailable < currRoom.energyCapacityAvailable) {
-            spawnUtility.createCreep(currSpawn, 'provider',1,9,5,0);
+            spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0, currRoom.name);
         }
 
         var rooms = ["W82N9"];
@@ -103,15 +103,15 @@ module.exports.loop = function () {
 
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 3) {
-            spawnUtility.createCreep(currSpawn, 'explorer',1,13,7,0);
+            spawnUtility.createCreep(currSpawn, 'explorer',1,13,7,0,"W82N9",currRoom.name);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2,0);
+            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2,0, currRoom.name);
         }
         else if(upgraders.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6,0);
+            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6,0, currRoom.name);
         }
 
         var rooms = [currRoom.name, "W82N9"];
