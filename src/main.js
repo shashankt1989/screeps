@@ -72,12 +72,7 @@ module.exports.loop = function () {
     }
     
     if(spawnCreeps)
-    {
-        // keeping logic separate of spawn miners as they are sure to have roads which means they need less move parts.
-        if(currRoomMiners.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0, currRoom.name);
-        }
-        
+    {      
         if(providers.length < 2 && currRoom.energyAvailable < currRoom.energyCapacityAvailable) {
             spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0, currRoom.name);
         }
@@ -85,11 +80,6 @@ module.exports.loop = function () {
         var rooms = ["W82N9"];
         for(var room of rooms)
         {
-            var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
-            if(miners.length < 3) {
-                spawnUtility.createCreep(currSpawn, 'miner',4,5,8,0,room);
-            }
-
             var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
             var claimTicks = 9999;
             if(Game.rooms[room])
@@ -117,6 +107,11 @@ module.exports.loop = function () {
         var rooms = [currRoom.name, "W82N9"];
         for(var room of rooms)
         {
+            var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
+            if(miners.length < 2) {
+                spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
+            }
+
             var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.targetRoom == room);
             var buildCount = 0;
             if(Game.rooms[room])
