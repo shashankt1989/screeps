@@ -87,6 +87,13 @@ module.exports.loop = function () {
         }
         
     }
+
+    var rooms = [currRoom.name, "W82N9"];
+    for(var room of rooms)
+    {
+        if(Game.rooms[room])
+            spawnUtility.pickupDroppedResources(Game.rooms[room]);
+    }
     
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
