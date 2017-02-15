@@ -103,15 +103,15 @@ module.exports.loop = function () {
 
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
         if(explorers.length < 3) {
-            spawnUtility.createCreep(currSpawn, 'explorer',1,13,7,0,"W82N9",currRoom.name);
+            spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,"W82N9",currRoom.name);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         if(upgraders.length < 1) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',1,2,2,0, currRoom.name);
+            spawnUtility.createCreep(currSpawn, 'upgrader',2,2,2,0, currRoom.name);
         }
         else if(upgraders.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',5,7,6,0, currRoom.name);
+            spawnUtility.createCreep(currSpawn, 'upgrader',5,5,5,0, currRoom.name);
         }
 
         var rooms = [currRoom.name, "W82N9"];
@@ -165,7 +165,10 @@ module.exports.loop = function () {
             roleClaim.run(creep);
         }
         if(creep.memory.role == 'provider') {
-            roleProvider.run(creep);
+            if(currRoom.energyAvailable < currRoom.energyCapacityAvailable)
+                roleProvider.run(creep);
+            else
+                roleUpgrader.run(creep);
         }
         
     }
