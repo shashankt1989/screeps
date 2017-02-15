@@ -70,6 +70,7 @@ var roleRepair = {
                         var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                             filter: (structure) => {
                                 return (structure.structureType == STRUCTURE_STORAGE ||
+                                    structure.structureType == STRUCTURE_CONTAINER ||
                                     structure.structureType == STRUCTURE_TOWER ||
                                     structure.structureType == STRUCTURE_ROAD ||
                                     (   (structure.structureType == STRUCTURE_RAMPART || 
