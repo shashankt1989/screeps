@@ -57,7 +57,8 @@ var roleRepair = {
                     if(creep.memory.target)
                     {
                         var currRepairTarget = Game.getObjectById(creep.memory.target);
-                        if(!currRepairTarget || currRepairTarget.hits >= Math.min(currRepairTarget.hitsMax,100000))
+                        if(!currRepairTarget || currRepairTarget.hits >= 
+                            (currRepairTarget.structureType == STRUCTURE_WALL ||currRepairTarget.structureType == STRUCTURE_RAMPART ? 100000 : currRepairTarget.hitsMax))
                         {
                             // done with this structure find a new one
                             creep.memory.target = null;
@@ -68,11 +69,13 @@ var roleRepair = {
                     {
                         var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                             filter: (structure) => {
-                                return (structure.structureType == STRUCTURE_WALL ||
-                                    structure.structureType == STRUCTURE_STORAGE ||
+                                return (structure.structureType == STRUCTURE_STORAGE ||
                                     structure.structureType == STRUCTURE_TOWER ||
                                     structure.structureType == STRUCTURE_ROAD ||
-                                    structure.structureType == STRUCTURE_RAMPART) && structure.hits < (structure.hitsMax /1.5) && structure.hits < 100000
+                                    (   (structure.structureType == STRUCTURE_RAMPART || 
+                                        structure.structureType == STRUCTURE_WALL) &&  && structure.hits < 100000)
+
+                                    )  && structure.hits < (structure.hitsMax /1.5)
                             }
                         });
                         if(target) {
