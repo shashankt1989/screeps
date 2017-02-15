@@ -75,10 +75,10 @@ module.exports.loop = function () {
     {
         // keeping logic separate of spawn miners as they are sure to have roads which means they need less move parts.
         if(currRoomMiners.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'miner',4,7,6,0);
+            spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0);
         }
         
-        if(providers.length < 2) {
+        if(providers.length < 2 && currRoom.energyAvailable < currRoom.energyCapacityAvailable) {
             spawnUtility.createCreep(currSpawn, 'provider',1,9,5,0);
         }
 
