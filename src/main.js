@@ -102,7 +102,7 @@ module.exports.loop = function () {
         }
 
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-        if(explorers.length < 4) {
+        if(explorers.length < 3) {
             spawnUtility.createCreep(currSpawn, 'explorer',1,13,7,0);
         }
         
