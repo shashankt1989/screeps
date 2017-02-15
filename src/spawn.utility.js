@@ -32,13 +32,7 @@ var spawnUtility = {
             for(var source of sources)
             {
 
-                var creeps = source.pos.findInRange(FIND_MY_CREEPS, range, { filter: function(creep) {
-                    return (   creep.memory.role == 'explorer' ||
-                        creep.memory.role == 'collector' ||
-                        creep.memory.role == 'harvester' ||
-                        creep.memory.role == 'provider' ||
-                        creep.memory.role == 'miner') && creep.carry.energy < creep.carryCapacity
-                    }});
+                var creeps = source.pos.findInRange(FIND_MY_CREEPS, range, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
                 if(creeps.length > 0)
                 {
                     var creep = creeps[0];
