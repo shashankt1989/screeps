@@ -31,17 +31,53 @@ module.exports.loop = function () {
             });
     towers.forEach(tower => logicTower.run(tower,currRoom));   
     
-    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.length<1) {
-        spawnUtility.createCreep(currSpawn, 'harvester',1,1,1,0);
-    }
-    else 
+    var spawnCreeps = true;
+
+    // if enough providers/miners present in room then turn all harvesters to miners
+    var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.room == currRoom);
+    var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.room == currRoom);
+    var currRoomMiners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
+    
+    if((providers.length == 0 || currRoomMiners.length == 0) && harvesters.length < 2)
     {
-        if(harvesters.length < 3) {
-            spawnUtility.createCreep(currSpawn, 'harvester',4,7,6,0);
+        // create an emergency harvester.
+        var currEnergy = Math.min(currRoom.energyAvailable,600);
+        spawnUtility.createCreep(currSpawn, 'harvester',
+                                Math.max(1,currEnergy/200), // work count
+                                Math.max(1,currEnergy/200), // carry count
+                                Math.max(1,currEnergy/200), // move count
+                                0);
+        spawnCreeps = false;
+    }
+    else if(providers.length == 0)
+    {
+        // create an emergency provider
+        var currEnergy = Math.min(currRoom.energyAvailable,800);
+        spawnUtility.createCreep(currSpawn, 'provider',
+                                1, // work count
+                                Math.max(1,(2*(currEnergy-100))/150 ), // carry count
+                                Math.max(1,(currEnergy-100)/150 ), // move count
+                                0);
+        spawnCreeps = false;
+    }
+    else
+    {
+        // Turn all harvesters into miners as we have provider present
+        for(var creep of harvesters)
+        {
+            creep.memory.role = 'miner';
+            creep.memory.targetRoom = currRoom.name;
+            currRoomMiners++;
+        }
+    }
+    
+    if(spawnCreeps)
+    {
+        // keeping logic separate of spawn miners as they are sure to have roads which means they need less move parts.
+        if(currRoomMiners.length < 2) {
+            spawnUtility.createCreep(currSpawn, 'miner',4,7,6,0);
         }
         
-        var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider');
         if(providers.length < 2) {
             spawnUtility.createCreep(currSpawn, 'provider',1,9,5,0);
         }
