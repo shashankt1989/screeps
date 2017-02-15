@@ -86,7 +86,7 @@ module.exports.loop = function () {
         for(var room of rooms)
         {
             var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
-            if(miners.length < 2) {
+            if(miners.length < 3) {
                 spawnUtility.createCreep(currSpawn, 'miner',4,5,8,0,room);
             }
 
