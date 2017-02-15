@@ -14,7 +14,7 @@ var spawnUtility = {
 
         // find all creeps with collector role and revert them back in case no dropped resource near them
         var collectors = _.filter(Game.creeps, (creep) => creep.memory.role == 'collector');
-        for( var collector in collectors)
+        for(var collector of collectors)
         {
             if(collector.carry.energy == collector.carryCapacity)
             {
