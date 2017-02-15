@@ -7,13 +7,13 @@ var logicTower = require('logic.tower');
 var roleExplorer = require('role.explorer');
 var roleMiner = require('role.miner');
 var roleClaim = require('role.claim');
+var roleProvider = require('role.provider');
 
 module.exports.loop = function () {
 
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
         }
     }
 
@@ -30,7 +30,6 @@ module.exports.loop = function () {
                 }
             });
     towers.forEach(tower => logicTower.run(tower,currRoom));   
-
     
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length<1) {
@@ -42,6 +41,11 @@ module.exports.loop = function () {
             spawnUtility.createCreep(currSpawn, 'harvester',4,7,6,0);
         }
         
+        var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider');
+        if(providers.length < 2) {
+            spawnUtility.createCreep(currSpawn, 'provider',1,9,5,0);
+        }
+
         var rooms = ["W82N9"];
         for(var room of rooms)
         {
@@ -51,13 +55,18 @@ module.exports.loop = function () {
             }
 
             var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
-            if(claimers.length < 2) {
+            var claimTicks = 9999;
+            if(Game.room['room'])
+            {
+                claimTicks = Game.room['room'].controller.reservation['ticksToEnd']; 
+            }
+            if(claimers.length < (claimTicks<1000 ? 2 : 1) ) {
                 spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
             }            
         }
 
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-        if(explorers.length < 3) {
+        if(explorers.length < 4) {
             spawnUtility.createCreep(currSpawn, 'explorer',1,13,7,0);
         }
         
@@ -118,6 +127,9 @@ module.exports.loop = function () {
         }
         if(creep.memory.role == 'claim') {
             roleClaim.run(creep);
+        }
+        if(creep.memory.role == 'provider') {
+            roleProvider.run(creep);
         }
         
     }
