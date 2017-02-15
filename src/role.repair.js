@@ -73,7 +73,7 @@ var roleRepair = {
                                     structure.structureType == STRUCTURE_TOWER ||
                                     structure.structureType == STRUCTURE_ROAD ||
                                     (   (structure.structureType == STRUCTURE_RAMPART || 
-                                        structure.structureType == STRUCTURE_WALL) &&  && structure.hits < 100000)
+                                        structure.structureType == STRUCTURE_WALL) && structure.hits < 100000)
 
                                     )  && structure.hits < (structure.hitsMax /1.5)
                             }
