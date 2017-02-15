@@ -23,7 +23,7 @@ var roleExplorer = {
                 else
                 {
                     // wait in room at some neutral position
-                    creep.moveTo(35,22)
+                    creep.moveTo(30,7);
                 }
             }
         }
