@@ -81,7 +81,7 @@ module.exports.loop = function () {
             }
 
             var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair' && creep.memory.targetRoom == room);
-            if(repairs.length < 2) {
+            if(repairs.length < 1) {
                 spawnUtility.createCreep(currSpawn, 'repair',2,2,2,0,room);
             }
         }
