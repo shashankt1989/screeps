@@ -36,6 +36,7 @@ var spawnUtility = {
                     return (   creep.memory.role == 'explorer' ||
                         creep.memory.role == 'collector' ||
                         creep.memory.role == 'harvester' ||
+                        creep.memory.role == 'provider' ||
                         creep.memory.role == 'miner') && creep.carry.energy < creep.carryCapacity
                     }});
                 if(creeps.length > 0)
