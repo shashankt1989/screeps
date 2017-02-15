@@ -1,3 +1,7 @@
+/*
+Creep that mines resources from sources and tranfers them to either storage or containers.
+*/
+
 var roleMiner = {
 
     /** @param {Creep} creep **/

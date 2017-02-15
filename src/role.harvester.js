@@ -1,3 +1,9 @@
+/*
+Backup role to ensure that more creeps can be created.
+Ideally a set of miners and providers keep the system running. But in case the creeps die off
+then harvesters are preferred as this creep directly can mine and transfer the resources to spawn/extensions and create more creeps.
+*/
+
 var roleHarvester = {
 
     /** @param {Creep} creep **/
