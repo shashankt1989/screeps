@@ -27,7 +27,7 @@ var roleMiner = {
                     { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0}});
                 if(targets.length > 0)
                 {
-                    if(creep.withdraw(targets[0]) == ERR_NOT_IN_RANGE) {
+                    if(creep.withdraw(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
                     }
                 }
