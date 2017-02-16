@@ -26,7 +26,7 @@ module.exports.loop = function () {
 
 
     var creepCountConfig = {
-        currRoom.name : {
+        "W81N9" : {
             "miner" : 2,
             "provider" : 1,
             "repair" : 1,
@@ -127,7 +127,6 @@ module.exports.loop = function () {
         {
             var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
             var minerCount = creepCountConfig[room] && creepCountConfig[room]['miner'] ? creepCountConfig[room]['miner'] : 0;  
-            console.log(room + "-" + minerCount);
             if(miners.length < minerCount) {
                 spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
             }
@@ -157,7 +156,11 @@ module.exports.loop = function () {
     
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-        
+        // skip creeps which have special role defined. 
+        // currently only collector role supported
+        if(creep.memory.specialRole)
+            continue;
+
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
         }

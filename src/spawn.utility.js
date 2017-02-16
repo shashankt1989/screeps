@@ -13,16 +13,16 @@ var spawnUtility = {
         
 
         // find all creeps with collector role and revert them back in case no dropped resource near them
-        var collectors = _.filter(Game.creeps, (creep) => creep.memory.role == 'collector');
+        var collectors = _.filter(Game.creeps, (creep) => creep.memory.specialRole == 'collector');
         for(var collector of collectors)
         {
             if(collector.carry.energy == collector.carryCapacity)
             {
-                collector.memory.role = collector.memory.originalRole;
+                collector.memory.specialRole = undefined;
             }
             else if(collector.pos.findInRange(FIND_DROPPED_RESOURCES,range).length == 0)
             {
-                collector.memory.role = collector.memory.originalRole;    
+                collector.memory.specialRole = undefined;    
             }
         }
 
@@ -36,11 +36,7 @@ var spawnUtility = {
                 if(creeps.length > 0)
                 {
                     var creep = creeps[0];
-                    if(creep.memory.role != 'collector')
-                    {
-                        creep.memory.originalRole = creep.memory.role;
-                        creep.memory.role = 'collector';
-                    }
+                    creep.memory.specialRole = "collector";
 
                     if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
@@ -48,7 +44,7 @@ var spawnUtility = {
                     else
                     {
                         // resource either picked up or something happened. revert back to original role
-                        creep.memory.role = creep.memory.originalRole;
+                        collector.memory.specialRole = undefined;
                     }
                 }
             }
