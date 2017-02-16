@@ -83,19 +83,44 @@ var spawnUtility = {
                 "miner" : 2,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 3,
-                "builders" : 2
+                "upgrader" : 2,
+                "builder" : 2
 
             },
             "W82N9" : {
                 "miner" : 3,
                 "repair" : 1,
                 "claim" : 2,
-                "explorer" : 3
+                "explorer" : 3,
+                "builder" : 2
             }
         };
 
         var maxCount = creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
+
+
+        if(role == 'builder')
+        {
+            // special logic for builders so they are only built when something needs to be built
+            var buildCount = 0;
+            if(Game.rooms[roomName])
+                buildCount = Game.rooms[roomName].find(FIND_CONSTRUCTION_SITES).length;
+            if(buildCount == 0)
+                maxCount = 0;
+        }
+
+        else if(role == 'claim')
+        {
+            var claimTicks = 9999;
+            if(Game.rooms[roomName])
+            {
+                claimTicks = Game.rooms[roomName].controller.reservation['ticksToEnd']; 
+            }
+            // For now dont need more than one claim role if reserve count > 1000
+            if(claimTicks > 1000)
+                maxCount = 1;
+        }
+
         if(maxCount == 0)
             return false;
 
@@ -103,6 +128,7 @@ var spawnUtility = {
 
         if(currCount >= maxCount)
             return false;
+
 
         return true;
     }

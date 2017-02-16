@@ -77,49 +77,30 @@ module.exports.loop = function () {
             spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0, currRoom.name);
         }
 
-        var rooms = ["W82N9"];
-        for(var room of rooms)
-        {
-            var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claim' && creep.memory.targetRoom == room);
-            var claimTicks = 9999;
-            if(Game.rooms[room])
-            {
-                claimTicks = Game.rooms[room].controller.reservation['ticksToEnd']; 
-            }
-            if(claimers.length < (claimTicks<1000 ? 2 : 1) ) {
-                spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
-            }            
-        }
-        
-        if(spawnUtility.shouldCreateCreep(room,'explorer')) {
-            spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
-        }
-        
-        var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-        if(upgraders.length < 1) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',2,2,2,0, currRoom.name);
-        }
-        else if(upgraders.length < 2) {
-            spawnUtility.createCreep(currSpawn, 'upgrader',5,5,5,0, currRoom.name);
-        }
-
         var rooms = [currRoom.name, "W82N9"];
         for(var room of rooms)
         {
+            if(spawnUtility.shouldCreateCreep(room,'claim')) {
+                spawnUtility.createCreep(currSpawn, 'claim',0,0,1,1,room);
+            }
+
+            if(spawnUtility.shouldCreateCreep(room,'upgrader')) {
+                spawnUtility.createCreep(currSpawn, 'upgrader',4,4,4,0, currRoom.name);
+            }
+
             if(spawnUtility.shouldCreateCreep(room,'miner')) {
                 spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
             }
-
-            var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.targetRoom == room);
-            var buildCount = 0;
-            if(Game.rooms[room])
-                buildCount = Game.rooms[room].find(FIND_CONSTRUCTION_SITES).length;
-            if(builders.length < 2 && buildCount > 0) {
+            if(spawnUtility.shouldCreateCreep(room,'builder')) {
                 spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
             }
 
             if(spawnUtility.shouldCreateCreep(room,'repair')) {
-                spawnUtility.createCreep(currSpawn, 'repair',2,2,2,0,room);
+                spawnUtility.createCreep(currSpawn, 'repair',1,3,2,0,room);
+            }
+
+            if(spawnUtility.shouldCreateCreep(room,'explorer')) {
+                spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
             }
         }
         
