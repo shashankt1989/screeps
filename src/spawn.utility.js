@@ -53,7 +53,6 @@ var spawnUtility = {
     },
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom,sourceRoom) {
-        console.log(getCreepCount(spawn.name,role));
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
