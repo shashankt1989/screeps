@@ -38,6 +38,7 @@ var roleMiner = {
                         {
                             if(currSource.energy > maxEnergy)
                             {
+                                maxEnergy = currSource.energy; 
                                 source = currSource;
                             }
                         }
