@@ -99,6 +99,9 @@ var spawnUtility = {
         var maxCount = creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
 
 
+        if(maxCount == 0)
+            return false;
+
         if(role == 'builder')
         {
             // special logic for builders so they are only built when something needs to be built
@@ -112,13 +115,13 @@ var spawnUtility = {
         else if(role == 'claim')
         {
             var claimTicks = 9999;
-            if(Game.rooms[roomName])
+            if(Game.rooms[roomName] && Game.rooms[roomName].controller.reservation)
             {
                 claimTicks = Game.rooms[roomName].controller.reservation['ticksToEnd']; 
             }
             // For now dont need more than one claim role if reserve count > 1000
             if(claimTicks > 1000)
-                maxCount = 1;
+                maxCount = Math.max(maxCount,1);
         }
 
         if(maxCount == 0)
