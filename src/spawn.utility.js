@@ -70,7 +70,7 @@ var spawnUtility = {
         {
             typeArr.push(CLAIM);
         }
-        var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: spawn.name});
+        var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: spawn.room.name});
         if(_.isString(retVal))
         {
             console.log("Creating new creep: " + retVal);
