@@ -85,7 +85,7 @@ module.exports.loop = function () {
         for(var room of rooms)
         {
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'provider')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0,room);
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'provider',0,6,3,0,room);
             }
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'claim')) {
@@ -108,7 +108,7 @@ module.exports.loop = function () {
             }
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'explorer')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,12,6,0,room);
             }
         }
         
