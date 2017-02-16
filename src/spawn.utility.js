@@ -133,7 +133,7 @@ var spawnUtility = {
         if(currCount >= maxCount)
             return false;
 
-
+        console.log("Should create creep of type " + role + " for room " + roomName);
         return true;
     }
 };
