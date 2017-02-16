@@ -37,7 +37,7 @@ module.exports.loop = function () {
                     return (structure.structureType == STRUCTURE_LINK && structure.my && structure.cooldown == 0);
                 }
             });
-    links.forEach(links => logicLink.run(link));   
+    links.forEach(link => logicLink.run(link));   
         
 
     var spawnCreeps = true;
