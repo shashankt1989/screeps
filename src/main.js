@@ -4,6 +4,7 @@ var roleBuilder = require('role.builder');
 var roleRepair = require('role.repair');
 var spawnUtility = require('spawn.utility');
 var logicTower = require('logic.tower');
+var logicLink = require('logic.link');
 var roleExplorer = require('role.explorer');
 var roleMiner = require('role.miner');
 var roleClaim = require('role.claim');
@@ -30,7 +31,15 @@ module.exports.loop = function () {
                 }
             });
     towers.forEach(tower => logicTower.run(tower,currRoom));   
-    
+
+    var links = currRoom.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_LINK && structure.my && structure.cooldown == 0);
+                }
+            });
+    links.forEach(links => logicLink.run(link));   
+        
+
     var spawnCreeps = true;
 
     // if enough providers/miners present in room then turn all harvesters to miners
