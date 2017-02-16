@@ -63,7 +63,7 @@ var roleMiner = {
                 creep.memory.mining = false;
                 // find any container within range 10 which requires dire repairs
                 var containerTargets = creep.pos.findInRange(FIND_STRUCTURES, 10,
-                    { filter: function(sstructure) {return structure.structureType == STRUCTURE_CONTAINER && structure.hits < 100000}});
+                    { filter: function(structure) {return structure.structureType == STRUCTURE_CONTAINER && structure.hits < 100000}});
                 if(containerTargets.length>0)
                 {
                     if(creep.repair(containerTargets[0]) == ERR_NOT_IN_RANGE) {
