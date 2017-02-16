@@ -38,7 +38,7 @@ var roleExplorer = {
             }
             else
             {
-                var target = creep.pos.findClosestByRange(FIND_STRUCTURES{
+                var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_LINK;
                     }
