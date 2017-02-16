@@ -10,9 +10,22 @@ var roleHarvester = {
     run: function(creep) {
         if(creep.carry.energy == 0 || (creep.memory.harvesting == true && creep.carry.energy < creep.carryCapacity)) {
             creep.memory.harvesting = true;
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ff0000'}});
+            var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
+            if(source)
+            {
+                if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                }
+            }
+            else
+            {
+                source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY] > 0 }});
+                if(source)
+                {
+                    if(creep.withdraw(source,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(source);
+                    }
+                }
             }
         }
         else {
