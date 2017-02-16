@@ -44,7 +44,7 @@ var spawnUtility = {
                     else
                     {
                         // resource either picked up or something happened. revert back to original role
-                        collector.memory.specialRole = undefined;
+                        creep.memory.specialRole = undefined;
                     }
                 }
             }
@@ -53,6 +53,7 @@ var spawnUtility = {
     },
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom,sourceRoom) {
+        console.log(getCreepCount(spawn.name,role));
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
@@ -75,6 +76,31 @@ var spawnUtility = {
         {
             console.log("Creating new creep: " + retVal);
         }
+    },
+
+    getCreepCount: function(roomName,role) {
+        var creepCountConfig = {
+            "W81N9" : {
+                "miner" : 2,
+                "provider" : 1,
+                "repair" : 1,
+                "upgrader" : 3,
+                "builders" : 2
+
+            },
+            "W82N9" : {
+                "miner" : 3,
+                "repair" : 1,
+                "claim" : 2,
+                "explorer" : 3
+            }
+        };
+
+        return creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
+    },
+
+    getCurrentCount : function(roomName, role) {
+
     }
 };
 
