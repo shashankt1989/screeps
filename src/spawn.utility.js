@@ -95,11 +95,11 @@ var spawnUtility = {
             }
         };
 
-        var maxCount = creepCountConfig[targetRoom] && creepCountConfig[targetRoom][role] ? creepCountConfig[targetRoom][role] : 0;
+        var maxCount = creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
         if(maxCount == 0)
             return false;
 
-        var currCount = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == targetRoom);
+        var currCount = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == roomName);
 
         if(currCount >= maxCount)
             return false;
