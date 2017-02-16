@@ -128,7 +128,7 @@ var spawnUtility = {
             return false;
 
         // if creep is about to die off then consider that creep as good as dead! 
-        var currCreeps = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == roomName);
+        var currCreeps = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == roomName && (creep.spawning || creep.ticksToLive > 100) );
         var currCount = currCreeps.length;
         if(currCount >= maxCount)
             return false;
