@@ -24,6 +24,24 @@ module.exports.loop = function () {
     var currSpawn = Game.spawns['Spawn1']; 
     var currRoom = currSpawn.room;
 
+
+    var creepCountConfig = {
+        currRoom.name : {
+            "miner" : 2,
+            "provider" : 1,
+            "repair" : 1,
+            "upgrader" : 3,
+            "builders" : 2
+
+        },
+        "W82N9" : {
+            "miner" : 3,
+            "repair" : 1,
+            "claim" : 2,
+            "explorer" : 3
+        }
+    };
+
     var towers = currRoom.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_TOWER);
@@ -34,8 +52,8 @@ module.exports.loop = function () {
     var spawnCreeps = true;
 
     // if enough providers/miners present in room then turn all harvesters to miners
-    var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.room == currRoom);
-    var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.room == currRoom);
+    var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.memory.targetRoom == currRoom.name);
+    var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
     var currRoomMiners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
     
     if((providers.length == 0 || currRoomMiners.length == 0) && harvesters.length < 2)
@@ -108,7 +126,9 @@ module.exports.loop = function () {
         for(var room of rooms)
         {
             var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
-            if(miners.length < 2) {
+            var minerCount = creepCountConfig[room] && creepCountConfig[room]['miner'] ? creepCountConfig[room]['miner'] : 0;  
+            console.log(room + "-" + minerCount);
+            if(miners.length < minerCount) {
                 spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
             }
 
