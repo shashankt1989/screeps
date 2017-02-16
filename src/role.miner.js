@@ -22,41 +22,53 @@ var roleMiner = {
             if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity))
             {
                 creep.memory.mining = true;
-                var source = null;
-                if(creep.memory.sourceId)
+                // try to find a nearby link first. use that to withdraw energy. 
+                var targets = creep.pos.findInRange(FIND_STRUCTURES, 10,
+                    { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0}});
+                if(targets.length > 0)
                 {
-                    // some source is already defined so just honor it
-                    source = Game.getObjectById(creep.memory.sourceId);
+                    if(creep.withdraw(targets[0]) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
+                    }
                 }
-                if(!source)
+                else
                 {
-                    // need to find a source for this creep. of all the sources find one with max resources present
-                    var allSources = creep.room.find(FIND_SOURCES);
-                    if(allSources.length > 1)
+                    var source = null;
+                    if(creep.memory.sourceId)
                     {
-                        var maxEnergy = -1;
-                        for(var currSource of allSources)
+                        // some source is already defined so just honor it
+                        source = Game.getObjectById(creep.memory.sourceId);
+                    }
+                    if(!source)
+                    {
+                        // need to find a source for this creep. of all the sources find one with max resources present
+                        var allSources = creep.room.find(FIND_SOURCES);
+                        if(allSources.length > 1)
                         {
-                            if(currSource.energy > maxEnergy)
+                            var maxEnergy = -1;
+                            for(var currSource of allSources)
                             {
-                                maxEnergy = currSource.energy; 
-                                source = currSource;
+                                if(currSource.energy > maxEnergy)
+                                {
+                                    maxEnergy = currSource.energy; 
+                                    source = currSource;
+                                }
                             }
+                            creep.memory.sourceId = source.id;    
                         }
-                        creep.memory.sourceId = source.id;    
+                        else if(allSources.length == 1)
+                        {
+                            source = allSources[0];
+                            creep.memory.sourceId = source.id;
+                        }
+                        else
+                        {
+                            console.log(creep.memory.targetRoom + " is missing energy source");
+                        }
                     }
-                    else if(allSources.length == 1)
-                    {
-                        source = allSources[0];
-                        creep.memory.sourceId = source.id;
+                    if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}});
                     }
-                    else
-                    {
-                        console.log(creep.memory.targetRoom + " is missing energy source");
-                    }
-                }
-                if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}});
                 }
             }
             else
