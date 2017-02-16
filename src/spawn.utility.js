@@ -74,7 +74,10 @@ var spawnUtility = {
         if(_.isString(retVal))
         {
             console.log("Creating new creep: " + retVal);
+            return true;
         }
+        else
+            return false;
     },
 
     shouldCreateCreep: function(roomName,role) {

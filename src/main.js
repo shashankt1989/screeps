@@ -75,31 +75,31 @@ module.exports.loop = function () {
         var rooms = [currRoom.name, "W82N9"];
         for(var room of rooms)
         {
-            if(spawnUtility.shouldCreateCreep(room,'provider')) {
-                spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0,room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'provider')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0,room);
             }
 
-            if(spawnUtility.shouldCreateCreep(room,'claim')) {
-                spawnUtility.createCreep(currSpawn, 'claim',0,0,1,1,room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'claim')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'claim',0,0,1,1,room);
             }
 
-            if(spawnUtility.shouldCreateCreep(room,'upgrader')) {
-                spawnUtility.createCreep(currSpawn, 'upgrader',4,4,4,0, room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'upgrader')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'upgrader',4,4,4,0, room);
             }
 
-            if(spawnUtility.shouldCreateCreep(room,'miner')) {
-                spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'miner')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
             }
-            if(spawnUtility.shouldCreateCreep(room,'builder')) {
-                spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
-            }
-
-            if(spawnUtility.shouldCreateCreep(room,'repair')) {
-                spawnUtility.createCreep(currSpawn, 'repair',1,3,2,0,room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'builder')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
             }
 
-            if(spawnUtility.shouldCreateCreep(room,'explorer')) {
-                spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'repair')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'repair',1,3,2,0,room);
+            }
+
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'explorer')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
             }
         }
         
