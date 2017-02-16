@@ -43,9 +43,9 @@ module.exports.loop = function () {
         // create an emergency harvester.
         var currEnergy = Math.min(currRoom.energyAvailable,600);
         spawnUtility.createCreep(currSpawn, 'harvester',
-                                Math.max(1,currEnergy/200), // work count
-                                Math.max(1,currEnergy/200), // carry count
-                                Math.max(1,currEnergy/200), // move count
+                                Math.max(1,Math.floor(currEnergy/200)), // work count
+                                Math.max(1,Math.floor(currEnergy/200)), // carry count
+                                Math.max(1,Math.floor(currEnergy/200)), // move count
                                 0, currRoom.name);
         spawnCreeps = false;
     }
@@ -55,8 +55,8 @@ module.exports.loop = function () {
         var currEnergy = Math.min(currRoom.energyAvailable,800);
         spawnUtility.createCreep(currSpawn, 'provider',
                                 0, // work count
-                                Math.max(1,(2*currEnergy)/150 ), // carry count
-                                Math.max(1,currEnergy/150 ), // move count
+                                Math.max(1,Math.floor((2*currEnergy)/150) ), // carry count
+                                Math.max(1,Math.floor(currEnergy/150) ), // move count
                                 0, currRoom.name);
         spawnCreeps = false;
     }
