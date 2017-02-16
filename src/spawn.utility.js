@@ -91,7 +91,7 @@ var spawnUtility = {
                 "miner" : 3,
                 "repair" : 1,
                 "claim" : 2,
-                "explorer" : 3,
+                "explorer" : 2,
                 "builder" : 2
             }
         };
@@ -127,8 +127,9 @@ var spawnUtility = {
         if(maxCount == 0)
             return false;
 
-        var currCount = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == roomName);
-
+        // if creep is about to die off then consider that creep as good as dead! 
+        var currCreeps = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == roomName && creep.ticksToLive > 100);
+        var currCount = currCreeps.length;
         if(currCount >= maxCount)
             return false;
 

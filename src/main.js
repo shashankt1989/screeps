@@ -67,19 +67,18 @@ module.exports.loop = function () {
         {
             creep.memory.role = 'miner';
             creep.memory.targetRoom = currRoom.name;
-            currRoomMiners++;
         }
     }
     
     if(spawnCreeps)
     {      
-        if(providers.length < 2 && currRoom.energyAvailable < currRoom.energyCapacityAvailable) {
-            spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0, currRoom.name);
-        }
-
         var rooms = [currRoom.name, "W82N9"];
         for(var room of rooms)
         {
+            if(spawnUtility.shouldCreateCreep(room,'provider')) {
+                spawnUtility.createCreep(currSpawn, 'provider',0,10,5,0,room);
+            }
+
             if(spawnUtility.shouldCreateCreep(room,'claim')) {
                 spawnUtility.createCreep(currSpawn, 'claim',0,0,1,1,room);
             }
@@ -117,8 +116,9 @@ module.exports.loop = function () {
         var creep = Game.creeps[name];
         // skip creeps which have special role defined. 
         // currently only collector role supported
-        if(creep.memory.specialRole)
+        if(creep.memory.specialRole) {
             continue;
+        }
         else if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
         }
