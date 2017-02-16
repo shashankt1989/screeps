@@ -38,14 +38,15 @@ var roleExplorer = {
             }
             else
             {
-                var targets = spawnRoom.find(FIND_STRUCTURES, {
+                var target = creep.pos.findClosestByRange(FIND_STRUCTURES{
                     filter: (structure) => {
-                        return structure.structureType == STRUCTURE_STORAGE;
+                        return structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_LINK;
                     }
                 });
-                if(targets.length > 0) {
-                    if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#aa0000'}});
+
+                if(target) {
+                    if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
                     }
                 }
             }
