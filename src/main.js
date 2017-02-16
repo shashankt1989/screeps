@@ -72,7 +72,7 @@ module.exports.loop = function () {
     
     if(spawnCreeps)
     {      
-        var rooms = [currRoom.name, "W82N9"];
+        var rooms = [currRoom.name, "W82N9", "W81N8"];
         for(var room of rooms)
         {
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'provider')) {
