@@ -4,10 +4,10 @@ var logicLink = {
         var range = 10;
 
         var targets = link.pos.findInRange(FIND_STRUCTURES, range, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY] < structure.storeCapacity)
-                }
-            );
+            filter: (structure) => {
+                return (structure.structureType == STRUCTURE_STORAGE && structure.store[RESOURCE_ENERGY] < structure.storeCapacity)
+            }
+        });
         if (targets.length > 0)
         {
             link.transferEnergy(targets[0]);
@@ -18,7 +18,7 @@ var logicLink = {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity)
                 }
-            );
+            });
             if(target)
             {
                 link.transferEnergy(target);
