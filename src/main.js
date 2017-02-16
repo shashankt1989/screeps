@@ -24,24 +24,6 @@ module.exports.loop = function () {
     var currSpawn = Game.spawns['Spawn1']; 
     var currRoom = currSpawn.room;
 
-
-    var creepCountConfig = {
-        "W81N9" : {
-            "miner" : 2,
-            "provider" : 1,
-            "repair" : 1,
-            "upgrader" : 3,
-            "builders" : 2
-
-        },
-        "W82N9" : {
-            "miner" : 3,
-            "repair" : 1,
-            "claim" : 2,
-            "explorer" : 3
-        }
-    };
-
     var towers = currRoom.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_TOWER);
@@ -108,10 +90,9 @@ module.exports.loop = function () {
                 spawnUtility.createCreep(currSpawn, 'claim',0,0,3,1,room);
             }            
         }
-
-        var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-        if(explorers.length < 3) {
-            spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,"W82N9",currRoom.name);
+        
+        if(spawnUtility.shouldCreateCreep(room,'explorer')) {
+            spawnUtility.createCreep(currSpawn, 'explorer',0,14,7,0,room);
         }
         
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
@@ -125,9 +106,7 @@ module.exports.loop = function () {
         var rooms = [currRoom.name, "W82N9"];
         for(var room of rooms)
         {
-            var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == room);
-            var minerCount = creepCountConfig[room] && creepCountConfig[room]['miner'] ? creepCountConfig[room]['miner'] : 0;  
-            if(miners.length < minerCount) {
+            if(spawnUtility.shouldCreateCreep(room,'miner')) {
                 spawnUtility.createCreep(currSpawn, 'miner',4,6,5,0,room);
             }
 
@@ -139,8 +118,7 @@ module.exports.loop = function () {
                 spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
             }
 
-            var repairs = _.filter(Game.creeps, (creep) => creep.memory.role == 'repair' && creep.memory.targetRoom == room);
-            if(repairs.length < 1) {
+            if(spawnUtility.shouldCreateCreep(room,'repair')) {
                 spawnUtility.createCreep(currSpawn, 'repair',2,2,2,0,room);
             }
         }
@@ -160,33 +138,29 @@ module.exports.loop = function () {
         // currently only collector role supported
         if(creep.memory.specialRole)
             continue;
-
-        if(creep.memory.role == 'harvester') {
+        else if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
         }
-        if(creep.memory.role == 'miner') {
+        else if(creep.memory.role == 'miner') {
             roleMiner.run(creep);
         }
-        if(creep.memory.role == 'explorer') {
-            roleExplorer.run(creep,currRoom,"W82N9");
+        else if(creep.memory.role == 'explorer') {
+            roleExplorer.run(creep);
         }
-        if(creep.memory.role == 'upgrader') {
+        else if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
         }
-        if(creep.memory.role == 'builder') {
+        else if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
-        if(creep.memory.role == 'repair') {
+        else if(creep.memory.role == 'repair') {
             roleRepair.run(creep);
         }
-        if(creep.memory.role == 'claim') {
+        else if(creep.memory.role == 'claim') {
             roleClaim.run(creep);
         }
-        if(creep.memory.role == 'provider') {
-            if(currRoom.energyAvailable < currRoom.energyCapacityAvailable)
-                roleProvider.run(creep);
-            else
-                roleUpgrader.run(creep);
+        else if(creep.memory.role == 'provider') {
+            roleProvider.run(creep);
         }
         
     }

@@ -52,7 +52,7 @@ var spawnUtility = {
             
     },
 
-    createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom,sourceRoom) {
+    createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom) {
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
@@ -70,14 +70,14 @@ var spawnUtility = {
         {
             typeArr.push(CLAIM);
         }
-        var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: sourceRoom});
+        var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: spawn.name});
         if(_.isString(retVal))
         {
             console.log("Creating new creep: " + retVal);
         }
     },
 
-    getCreepCount: function(roomName,role) {
+    shouldCreateCreep: function(roomName,role) {
         var creepCountConfig = {
             "W81N9" : {
                 "miner" : 2,
@@ -95,11 +95,16 @@ var spawnUtility = {
             }
         };
 
-        return creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
-    },
+        var maxCount = creepCountConfig[targetRoom] && creepCountConfig[targetRoom][role] ? creepCountConfig[targetRoom][role] : 0;
+        if(maxCount == 0)
+            return false;
 
-    getCurrentCount : function(roomName, role) {
+        var currCount = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == targetRoom);
 
+        if(currCount >= maxCount)
+            return false;
+
+        return true;
     }
 };
 
