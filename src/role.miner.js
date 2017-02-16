@@ -19,7 +19,8 @@ var roleMiner = {
         else
         {
 
-            if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity)) {
+            if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity))
+            {
                 creep.memory.mining = true;
                 var source = null;
                 if(creep.memory.sourceId)
@@ -42,7 +43,6 @@ var roleMiner = {
                                 source = currSource;
                             }
                         }
-                        source = currSource;
                         creep.memory.sourceId = source.id;    
                     }
                     else if(allSources.length == 1)
@@ -80,7 +80,8 @@ var roleMiner = {
                                 structure.structureType == STRUCTURE_CONTAINER);
                         }
                     });
-                    if(target) {
+                    if(target)
+                    {
                         if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
                         }
