@@ -121,7 +121,7 @@ var spawnUtility = {
             }
             // For now dont need more than one claim role if reserve count > 1000
             if(claimTicks > 1000)
-                maxCount = Math.max(maxCount,1);
+                maxCount = Math.min(maxCount,1);
         }
 
         if(maxCount == 0)
