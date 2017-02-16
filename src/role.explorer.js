@@ -1,9 +1,9 @@
 var roleExplorer = {
 
     run: function(creep) {
+        var targetRoom = creep.memory.targetRoom;
+        var spawnRoom = creep.memory.sourceRoom;
         if(creep.carry.energy < creep.carryCapacity) {
-            var targetRoom = creep.memory.targetRoom;
-            var spawnRoom = creep.memory.sourceRoom;
             if(creep.room.name != targetRoom)
             {
                 var exitDir = Game.map.findExit(creep.room, targetRoom);
