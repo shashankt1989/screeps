@@ -12,18 +12,11 @@ var spawnUtility = {
         var range = 5;
         
 
-        // find all creeps with collector role and revert them back in case no dropped resource near them
+        // find all creeps with collector role and revert them back. The special role will be added again in case they are selected.
         var collectors = _.filter(Game.creeps, (creep) => creep.memory.specialRole == 'collector');
         for(var collector of collectors)
         {
-            if(collector.carry.energy == collector.carryCapacity)
-            {
-                collector.memory.specialRole = undefined;
-            }
-            else if(collector.pos.findInRange(FIND_DROPPED_RESOURCES,range).length == 0)
-            {
-                collector.memory.specialRole = undefined;    
-            }
+            collector.memory.specialRole = undefined;
         }
 
         var sources = room.find(FIND_DROPPED_RESOURCES);
