@@ -68,10 +68,10 @@ var roleExplorer = {
                         if(creep.pos.isNearTo(source))
                         {
                             // just move in a random direction to create space. random movement should sometime remove the deadlock
-                            // also null the source so that explorers dont keep waiting at a mine without any miners
+                            // also null the sourceId in memory so that explorers dont keep waiting at a mine without any miners
                             var index = (100 + Math.floor(Math.random()*100))%directions.length;
                             creep.move(directions[index]);
-                            source = null;
+                            creep.memory.sourceId = undefined;
                         }
                         // try to proactively find dropped resources when in range of 10.
                         else if(creep.pos.inRangeTo(source, 10))
