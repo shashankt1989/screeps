@@ -79,7 +79,7 @@ var spawnUtility = {
                 "miner" : 1,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 2,
+                "upgrader" : 3,
                 "builder" : 2,
                 "explorer" : 1,
 

@@ -93,7 +93,7 @@ module.exports.loop = function () {
             }
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'upgrader')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'upgrader',4,4,4,0, room);
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'upgrader',6,10,4,0, room);
             }
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'miner')) {
