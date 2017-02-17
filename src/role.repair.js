@@ -2,6 +2,7 @@ var roleRepair = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        var wallHitpoints = 100000;
         if(creep.memory.targetRoom && creep.room.name != creep.memory.targetRoom)
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
@@ -58,7 +59,7 @@ var roleRepair = {
                     {
                         var currRepairTarget = Game.getObjectById(creep.memory.target);
                         if(!currRepairTarget || currRepairTarget.hits >= 
-                            (currRepairTarget.structureType == STRUCTURE_WALL ||currRepairTarget.structureType == STRUCTURE_RAMPART ? 70000 : currRepairTarget.hitsMax))
+                            (currRepairTarget.structureType == STRUCTURE_WALL ||currRepairTarget.structureType == STRUCTURE_RAMPART ? wallHitpoints : currRepairTarget.hitsMax))
                         {
                             // done with this structure find a new one
                             creep.memory.target = null;
@@ -73,7 +74,7 @@ var roleRepair = {
                                     structure.structureType == STRUCTURE_TOWER ||
                                     structure.structureType == STRUCTURE_ROAD ||
                                     (   (structure.structureType == STRUCTURE_RAMPART || 
-                                        structure.structureType == STRUCTURE_WALL) && structure.hits < 70000)
+                                        structure.structureType == STRUCTURE_WALL) && structure.hits < wallHitpoints)
 
                                     )  && structure.hits < (structure.hitsMax /1.5)
                             }

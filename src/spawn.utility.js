@@ -78,7 +78,7 @@ var spawnUtility = {
             "W81N9" : {
                 "miner" : 1,
                 "provider" : 1,
-                "repair" : 1,
+                "repair" : 3,
                 "upgrader" : 3,
                 "builder" : 2,
                 "explorer" : 1,
