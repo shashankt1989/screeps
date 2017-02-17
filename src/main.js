@@ -79,9 +79,9 @@ module.exports.loop = function () {
         }
     }
     
+    var rooms = [currRoom.name, "W82N9", "W81N8"];
     if(spawnCreeps)
     {      
-        var rooms = [currRoom.name, "W82N9", "W81N8"];
         for(var room of rooms)
         {
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'provider')) {
@@ -114,7 +114,6 @@ module.exports.loop = function () {
         
     }
 
-    var rooms = [currRoom.name, "W82N9"];
     for(var room of rooms)
     {
         if(Game.rooms[room])
