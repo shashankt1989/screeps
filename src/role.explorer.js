@@ -78,8 +78,8 @@ var roleExplorer = {
                             var droppedRes = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 10);
                             if(droppedRes.length > 0)
                             {
-                                if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
-                                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                                if(creep.pickup(droppedRes[0]) == ERR_NOT_IN_RANGE) {
+                                    creep.moveTo(droppedRes[0], {visualizePathStyle: {stroke: '#ff0000'}});
                                 }
                             }
                             else
