@@ -24,11 +24,21 @@ var spawnUtility = {
         {
             for(var source of sources)
             {
-                var creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
-                if(creep && source.pos.inRangeTo(creep,range))
+                var creep = null;
+                // check if we already have a creep associated with this
+                var creeps = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId == source.id );
+                if(creeps.length > 0)
+                    creep = creeps[0];
+                if(!creep)
+                {
+                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
+                    if(!creep || !source.pos.inRangeTo(creep,range))
+                        creep = null;
+                }
+                if(creep)
                 {
                     creep.memory.specialRole = "collector";
-
+                    creep.memory.collectorSourceId = source.id;
                     if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
