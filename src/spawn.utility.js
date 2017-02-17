@@ -24,11 +24,9 @@ var spawnUtility = {
         {
             for(var source of sources)
             {
-
-                var creeps = source.pos.findInRange(FIND_MY_CREEPS, range, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
-                if(creeps.length > 0)
+                var creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
+                if(creep && source.pos.inRangeTo(creep,range))
                 {
-                    var creep = creeps[0];
                     creep.memory.specialRole = "collector";
 
                     if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
@@ -111,7 +109,7 @@ var spawnUtility = {
             // special logic for builders so they are only built when something needs to be built
             var buildCount = 0;
             if(Game.rooms[roomName])
-                buildCount = Game.rooms[roomName].find(FIND_CONSTRUCTION_SITES).length;
+                buildCount = Game.rooms[roomName].find(FIND_CONSTRUCTION_SITES, {filter: (site) => {return site.my}}).length;
             if(buildCount == 0)
                 maxCount = 0;
         }
