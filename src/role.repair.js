@@ -2,7 +2,7 @@ var roleRepair = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        var wallHitpoints = 100000;
+        var wallHitpoints = 120000;
         if(creep.memory.targetRoom && creep.room.name != creep.memory.targetRoom)
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
