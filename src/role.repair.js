@@ -109,12 +109,11 @@ var roleRepair = {
                     }
                 }
                 else {
-                    // out of energy in storage. try to repair with whatever energy present.
-                    // else move to neutral location
-                    if(creep.carry.energy >0)
-                        creep.memory.repairing = true;
-                    else
-                        creep.moveTo(29,14);
+                    // out of energy in storage. mine from a source
+                    var source = creep.pos.findClosestByRange(FIND_SOURCES);
+                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                    }
                 }
             }
         }
