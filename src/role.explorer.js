@@ -30,69 +30,81 @@ var roleExplorer = {
                 }
                 else
                 {
-                    // honor the sourceId if already present and move towards it.
-                    var source = null;
-                    if(creep.memory.sourceId)
+                    // honor the droppedId if present
+                    if(creep.memory.collectorSourceId && Game.getObjectById(creep.memory.collectorSourceId))
                     {
-                        // some source is already defined so just honor it
-                        source = Game.getObjectById(creep.memory.sourceId);
-                    }
-                    if(!source)
-                    {
-                        // need to find a source for this creep. pick a random source
-                        var allSources = creep.room.find(FIND_SOURCES);
-                        if(allSources.length > 1)
-                        {
-                            // Choosing a random number between [100,200) and then modulus with number of sources
-                            var index = (100 + Math.floor(Math.random()*100))%allSources.length;
-                            source = allSources[index];
-                            creep.memory.sourceId = source.id;    
-                        }
-                        else if(allSources.length == 1)
-                        {
-                            source = allSources[0];
-                            creep.memory.sourceId = source.id;
-                        }
-                        else
-                        {
-                            console.log(creep.memory.targetRoom + " is missing energy source");
+                        var droppedRes = Game.getObjectById(creep.memory.collectorSourceId);
+                        if(creep.pickup(droppedRes) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(droppedRes, {visualizePathStyle: {stroke: '#ff0000'}});
                         }
                     }
-                    if(source) {
-                        // Creep should find resources lying around and the spawn utility logic should kick in and it should pick up the resource
-                        
-                        // As sometimes builders or repair creeps can be closer to the dropped res and continue picking it up and staying there
-                        // adding special logic as well
-
-                        // take care of scenarios where explorer creep blocks the miner creep from gathering resources
-                        if(creep.pos.isNearTo(source))
+                    else
+                    {
+                        // honor the sourceId if already present and move towards it.
+                        var source = null;
+                        if(creep.memory.sourceId)
                         {
-                            // just move in a random direction to create space. random movement should sometime remove the deadlock
-                            // also null the sourceId in memory so that explorers dont keep waiting at a mine without any miners
-                            var index = (100 + Math.floor(Math.random()*100))%directions.length;
-                            creep.move(directions[index]);
-                            creep.memory.sourceId = undefined;
+                            // some source is already defined so just honor it
+                            source = Game.getObjectById(creep.memory.sourceId);
                         }
-                        // try to proactively find dropped resources when in range of 10.
-                        else if(creep.pos.inRangeTo(source, 10))
+                        if(!source)
                         {
-                            // specifically check for dropped resources
-                            var droppedRes = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 10);
-                            if(droppedRes.length > 0)
+                            // need to find a source for this creep. pick a random source
+                            var allSources = creep.room.find(FIND_SOURCES);
+                            if(allSources.length > 1)
                             {
-                                if(creep.pickup(droppedRes[0]) == ERR_NOT_IN_RANGE) {
-                                    creep.moveTo(droppedRes[0], {visualizePathStyle: {stroke: '#ff0000'}});
+                                // Choosing a random number between [100,200) and then modulus with number of sources
+                                var index = (100 + Math.floor(Math.random()*100))%allSources.length;
+                                source = allSources[index];
+                                creep.memory.sourceId = source.id;    
+                            }
+                            else if(allSources.length == 1)
+                            {
+                                source = allSources[0];
+                                creep.memory.sourceId = source.id;
+                            }
+                            else
+                            {
+                                console.log(creep.memory.targetRoom + " is missing energy source");
+                            }
+                        }
+                        if(source) {
+                            // Creep should find resources lying around and the spawn utility logic should kick in and it should pick up the resource
+                            
+                            // As sometimes builders or repair creeps can be closer to the dropped res and continue picking it up and staying there
+                            // adding special logic as well
+
+                            // take care of scenarios where explorer creep blocks the miner creep from gathering resources
+                            if(creep.pos.isNearTo(source))
+                            {
+                                // just move in a random direction to create space. random movement should sometime remove the deadlock
+                                // also null the sourceId in memory so that explorers dont keep waiting at a mine without any miners
+                                var index = (100 + Math.floor(Math.random()*100))%directions.length;
+                                creep.move(directions[index]);
+                                creep.memory.sourceId = undefined;
+                            }
+                            // try to proactively find dropped resources when in range of 10.
+                            else if(creep.pos.inRangeTo(source, 10))
+                            {
+                                // specifically check for dropped resources
+                                var droppedRes = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 10);
+                                if(droppedRes.length > 0)
+                                {
+                                    creep.memory.collectorSourceId = droppedRes[0].id; 
+                                    if(creep.pickup(droppedRes[0]) == ERR_NOT_IN_RANGE) {
+                                        creep.moveTo(droppedRes[0], {visualizePathStyle: {stroke: '#ff0000'}});
+                                    }
+                                }
+                                else
+                                {
+                                    creep.moveTo(source);
                                 }
                             }
+                            // just move towards the source
                             else
                             {
                                 creep.moveTo(source);
                             }
-                        }
-                        // just move towards the source
-                        else
-                        {
-                            creep.moveTo(source);
                         }
                     }
                 }
