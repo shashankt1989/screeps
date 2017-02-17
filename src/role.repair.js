@@ -70,13 +70,12 @@ var roleRepair = {
                         var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                             filter: (structure) => {
                                 return (structure.structureType == STRUCTURE_STORAGE ||
-                                    structure.structureType == STRUCTURE_CONTAINER ||
                                     structure.structureType == STRUCTURE_TOWER ||
                                     structure.structureType == STRUCTURE_ROAD ||
                                     (   (structure.structureType == STRUCTURE_RAMPART || 
                                         structure.structureType == STRUCTURE_WALL) && structure.hits < 70000)
 
-                                    )  && structure.hits < (structure.hitsMax /1.5) && structure.id != "58a3b56e94eaab38721c5c66"
+                                    )  && structure.hits < (structure.hitsMax /1.5)
                             }
                         });
                         if(target) {

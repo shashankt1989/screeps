@@ -1,9 +1,7 @@
 /*
-Creep that mines resources from sources and tranfers them to either storage or containers.
-Miners are supposed to operate in neutral environments where only containers are present. Containers are fragile structures which require
-constant repairs. Miners are coded to repair the structure if required. 
-
-Also miners have fixed source which is decided once they enter the room for the first time. Ideally all sources should have a container right next to it.
+Miners just keep on mining and dropping the resource. Someone should pick it up.
+They dont have any carry parts. Unless they revert back from harvester. 
+Also miners have fixed source which is decided once they enter the room for the first time.
 */
 
 var roleMiner = {
@@ -18,87 +16,41 @@ var roleMiner = {
         }
         else
         {
-
-            if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity) || creep.memory.dropMiner)
+            var source = null;
+            if(creep.memory.sourceId)
             {
-                creep.memory.mining = true;
-                // try to find a nearby link first. use that to withdraw energy. 
-                var targets = creep.pos.findInRange(FIND_STRUCTURES, 10,
-                    { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0}});
-                if(targets.length > 0)
+                // some source is already defined so just honor it
+                source = Game.getObjectById(creep.memory.sourceId);
+            }
+            if(!source)
+            {
+                // need to find a source for this creep. of all the sources find one with max resources present
+                var allSources = creep.room.find(FIND_SOURCES);
+                if(allSources.length > 1)
                 {
-                    if(creep.withdraw(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
+                    var maxEnergy = -1;
+                    for(var currSource of allSources)
+                    {
+                        if(currSource.energy > maxEnergy)
+                        {
+                            maxEnergy = currSource.energy; 
+                            source = currSource;
+                        }
                     }
+                    creep.memory.sourceId = source.id;    
+                }
+                else if(allSources.length == 1)
+                {
+                    source = allSources[0];
+                    creep.memory.sourceId = source.id;
                 }
                 else
                 {
-                    var source = null;
-                    if(creep.memory.sourceId)
-                    {
-                        // some source is already defined so just honor it
-                        source = Game.getObjectById(creep.memory.sourceId);
-                    }
-                    if(!source)
-                    {
-                        // need to find a source for this creep. of all the sources find one with max resources present
-                        var allSources = creep.room.find(FIND_SOURCES);
-                        if(allSources.length > 1)
-                        {
-                            var maxEnergy = -1;
-                            for(var currSource of allSources)
-                            {
-                                if(currSource.energy > maxEnergy)
-                                {
-                                    maxEnergy = currSource.energy; 
-                                    source = currSource;
-                                }
-                            }
-                            creep.memory.sourceId = source.id;    
-                        }
-                        else if(allSources.length == 1)
-                        {
-                            source = allSources[0];
-                            creep.memory.sourceId = source.id;
-                        }
-                        else
-                        {
-                            console.log(creep.memory.targetRoom + " is missing energy source");
-                        }
-                    }
-                    if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}});
-                    }
+                    console.log(creep.memory.targetRoom + " is missing energy source");
                 }
             }
-            else
-            {
-                creep.memory.mining = false;
-                // find any container within range 10 which requires dire repairs
-                var containerTargets = creep.pos.findInRange(FIND_STRUCTURES, 10,
-                    { filter: function(structure) {return structure.structureType == STRUCTURE_CONTAINER && structure.hits < 100000}});
-                if(containerTargets.length>0)
-                {
-                    if(creep.repair(containerTargets[0]) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(containerTargets[0]);
-                    }
-                }
-                else
-                {
-                    // fill up the container/storage
-                    var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                        filter: (structure) => {
-                            return (structure.structureType == STRUCTURE_STORAGE ||
-                                structure.structureType == STRUCTURE_CONTAINER);
-                        }
-                    });
-                    if(target)
-                    {
-                        if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
-                        }
-                    }
-                }
+            if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}});
             }
         }
     }

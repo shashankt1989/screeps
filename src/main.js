@@ -97,7 +97,7 @@ module.exports.loop = function () {
             }
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'miner')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'miner',5,3,3,0,room);
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'miner',6,0,3,0,room);
             }
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'builder')) {
                 spawnCreeps = !spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
@@ -110,8 +110,7 @@ module.exports.loop = function () {
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'explorer')) {
                 spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,12,6,0,room);
             }
-        }
-        
+        }  
     }
 
     for(var room of rooms)

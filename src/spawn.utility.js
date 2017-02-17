@@ -87,11 +87,12 @@ var spawnUtility = {
                 "provider" : 1,
                 "repair" : 1,
                 "upgrader" : 2,
-                "builder" : 2
+                "builder" : 2,
+                "explorer" : 2,
 
             },
             "W82N9" : {
-                "miner" : 3,
+                "miner" : 2,
                 "repair" : 1,
                 "claim" : 2,
                 "explorer" : 3,
