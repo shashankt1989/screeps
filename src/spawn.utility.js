@@ -102,7 +102,7 @@ var spawnUtility = {
                 "repair" : 0,
                 "claim" : 1,
                 "explorer" : 1,
-                "builder" : 1
+                "builder" : 0
             }
         };
 
