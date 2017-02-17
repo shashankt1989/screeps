@@ -19,7 +19,7 @@ var roleMiner = {
         else
         {
 
-            if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity))
+            if(creep.carry.energy == 0 || (creep.memory.mining == true && creep.carry.energy < creep.carryCapacity) || creep.memory.dropMiner)
             {
                 creep.memory.mining = true;
                 // try to find a nearby link first. use that to withdraw energy. 

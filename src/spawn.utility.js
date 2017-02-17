@@ -99,10 +99,10 @@ var spawnUtility = {
             },
             "W81N8" : {
                 "miner" : 1,
-                "repair" : 0,
+                "repair" : 1,
                 "claim" : 1,
                 "explorer" : 1,
-                "builder" : 0
+                "builder" : 1
             }
         };
 
