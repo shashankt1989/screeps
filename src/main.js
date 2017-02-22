@@ -86,7 +86,7 @@ module.exports.loop = function () {
 
             var hostiles = Game.rooms[room].find(FIND_HOSTILE_CREEPS);
             var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
-            if(spawnCreeps && defenders<=hostiles)
+            if(spawnCreeps && hostiles > 0 && defenders<=hostiles)
             {
                 spawnUtility.createCreep(currSpawn, "defender", room);
                 spawnCreeps = false;
