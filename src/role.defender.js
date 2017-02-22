@@ -23,7 +23,7 @@ var roleDefender = {
 
         if(fContinue)
         {
-            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => {return !structure.my}});)
+            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => {return !structure.my}});
             if(target)
             {
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
