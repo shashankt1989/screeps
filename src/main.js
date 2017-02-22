@@ -9,6 +9,7 @@ var roleExplorer = require('role.explorer');
 var roleMiner = require('role.miner');
 var roleClaim = require('role.claim');
 var roleProvider = require('role.provider');
+var roleDefender = require('role.defender');
 
 module.exports.loop = function () {
 
@@ -79,7 +80,7 @@ module.exports.loop = function () {
         }
     }
     
-    var rooms = [currRoom.name, "W82N9", "W81N8"];
+    var rooms = [currRoom.name, "W82N9"/*, "W81N8"*/];
     if(spawnCreeps)
     {      
         for(var room of rooms)
@@ -109,6 +110,10 @@ module.exports.loop = function () {
 
             if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'explorer')) {
                 spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,12,6,0,room);
+            }
+
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'defender')) {
+                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'defender',0,0,0,0,room);
             }
         }  
     }
@@ -149,6 +154,9 @@ module.exports.loop = function () {
         }
         else if(creep.memory.role == 'provider') {
             roleProvider.run(creep);
+        }
+        else if(creep.memory.role == 'defender') {
+            roleDefender.run(creep);
         }
         
     }

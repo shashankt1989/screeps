@@ -1,11 +1,4 @@
-/*
- * Module code goes here. Use 'module.exports' to export things:
- * module.exports.thing = 'a thing';
- *
- * You can import it from another modules like this:
- * var mod = require('spawn.utility');
- * mod.thing == 'a thing'; // true
- */
+var config = require('config');
 
 var spawnUtility = {
     pickupDroppedResources: function(room) {
@@ -54,6 +47,20 @@ var spawnUtility = {
     },
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom) {
+        var attackCount = 0;
+        if(config.creepConfig[role])
+        {
+            var creepConfig = config.creepConfig[role]; 
+            if(creepConfig["move"])
+                moveCount = creepConfig["move"];
+            if(creepConfig["attack"])
+                attackCount = creepConfig["attack"];
+            if(creepConfig["work"])
+                workCount = creepConfig["work"];
+            if(creepConfig["carry"])
+                carryCount = creepConfig["carry"];
+
+        }
         var typeArr = [];
         for(i=0;i<workCount;i++)
         {
@@ -70,6 +77,10 @@ var spawnUtility = {
         for(i=0;i<claimCount;i++)
         {
             typeArr.push(CLAIM);
+        }
+        for(i=0;i<attackCount;i++)
+        {
+            typeArr.push(ATTACK);
         }
         var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + targetRoom + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: spawn.room.name});
         if(_.isString(retVal))
@@ -93,11 +104,12 @@ var spawnUtility = {
 
             },
             "W82N9" : {
-                "miner" : 2,
-                "repair" : 1,
-                "claim" : 2,
-                "explorer" : 3,
-                "builder" : 2
+                "miner" : 0,
+                "repair" : 0,
+                "claim" : 0,
+                "explorer" : 0,
+                "builder" : 0,
+                "defender" : 1
             },
             "W81N8" : {
                 "miner" : 1,

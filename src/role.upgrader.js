@@ -28,11 +28,11 @@ var roleUpgrader = {
                 }
             }
             else {
-                // go and upgrade if any energy present or move to neutral location
-                if(creep.carry.energy >0)
-                    creep.memory.upgrading = true;
-                else
-                    creep.moveTo(36,12);
+                // out of energy in storage. mine from a source
+                var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
+                if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                }
             }
         }
     }
