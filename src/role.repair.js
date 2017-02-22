@@ -96,6 +96,14 @@ var roleRepair = {
                     else
                     {
                         // nothing to repair currently
+                        // dismantle enemy construction sites
+                        var target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {filter: (site) => {return !site.my}});
+                        if(target)
+                        {
+                            if(creep.dismantle(target) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(target);
+                            }
+                        }
                     }
                 }
             }
