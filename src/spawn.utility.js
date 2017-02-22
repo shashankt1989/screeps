@@ -48,9 +48,9 @@ var spawnUtility = {
 
     createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom) {
         var attackCount = 0;
-        if(config.creepConfig[role])
+        if(config.creepConfigs[role])
         {
-            var creepConfig = config.creepConfig[role]; 
+            var creepConfig = config.creepConfigs[role]; 
             if(creepConfig["move"])
                 moveCount = creepConfig["move"];
             if(creepConfig["attack"])
