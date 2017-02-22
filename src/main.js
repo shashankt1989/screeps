@@ -67,6 +67,19 @@ module.exports.loop = function () {
             spawnCreeps = false;
         }
         
+
+        var roles = ["miner","explorer","provider"];
+        for(var room of rooms)
+        {
+            for(var role of roles)
+            {       
+                if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,room,role)) {
+                    spawnUtility.createCreep(currSpawn, role, room);
+                    spawnCreeps = false;
+                }
+            }
+        }
+        
         // check if we need to defend any room
         for(var room of rooms)
         {
@@ -79,18 +92,6 @@ module.exports.loop = function () {
             {
                 spawnUtility.createCreep(currSpawn, "defender", room);
                 spawnCreeps = false;
-            }
-        }
-
-        var roles = ["miner","explorer","provider"];
-        for(var room of rooms)
-        {
-            for(var role of roles)
-            {       
-                if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,room,role)) {
-                    spawnUtility.createCreep(currSpawn, role, room);
-                    spawnCreeps = false;
-                }
             }
         }
 

@@ -3,9 +3,9 @@ var config = {
 
     creepRoleConfigs: {
         "defender" : {
-            "tough" : 3,
-            "move" : 6,
-            "attack" : 3
+            "tough" : 6,
+            "move" : 5,
+            "attack" : 4
         },
         "miner" : {
             "move" : 3,
