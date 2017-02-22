@@ -1,13 +1,15 @@
 /*
 Looks for resources in receiver links or dropped resources in target room and then brings them back to either storage or non receiver links in source room.
 */
+var config = require('config');
+
 var roleExplorer = {
 
     run: function(creep) {
         var targetRoom = creep.memory.targetRoom;
         var spawnRoom = Game.rooms[creep.memory.sourceRoom];
         var receiverLinks = ["58a5f97f83b51f338b909f73"];
-        var directions = [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT.TOP_LEFT];
+        var directions = [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,TOP_LEFT];
 
         if(creep.carry.energy == 0)
         {
@@ -25,7 +27,7 @@ var roleExplorer = {
             if(fContinue)
             {
                 // try to find a nearby link first. use that to withdraw energy. 
-                var targets = creep.pos.findInRange(FIND_STRUCTURES, 10,
+                var targets = creep.pos.findInRange(FIND_STRUCTURES, config.range,
                     { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0 && receiverLinks.indexOf(structure.id) != -1}});
                 if(targets.length > 0)
                 {
@@ -98,7 +100,7 @@ var roleExplorer = {
                     else if(creep.pos.inRangeTo(source, 10))
                     {
                         // specifically check for dropped resources
-                        var droppedRes = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 10);
+                        var droppedRes = creep.pos.findInRange(FIND_DROPPED_RESOURCES, config.range);
                         if(droppedRes.length > 0)
                         {
                             creep.memory.collectorSourceId = droppedRes[0].id; 

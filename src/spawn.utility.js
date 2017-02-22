@@ -1,10 +1,7 @@
 var config = require('config');
 
 var spawnUtility = {
-    pickupDroppedResources: function(room) {
-        var range = 5;
-        
-
+    pickupDroppedResources: function(room) {   
         // find all creeps with collector role and revert them back. The special role will be added again in case they are selected.
         var collectors = _.filter(Game.creeps, (creep) => creep.memory.specialRole == 'collector');
         for(var collector of collectors)
@@ -25,7 +22,7 @@ var spawnUtility = {
                 if(!creep)
                 {
                     creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
-                    if(!creep || !source.pos.inRangeTo(creep,range))
+                    if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;
                 }
                 if(creep)

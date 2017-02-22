@@ -25,84 +25,96 @@ module.exports.loop = function () {
 
     // testing zone ends
 
-    var currSpawn = Game.spawns['Spawn1']; 
-    var currRoom = currSpawn.room;
-
-    var towers = currRoom.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_TOWER);
-                }
-            });
-    towers.forEach(tower => logicTower.run(tower,currRoom));   
-
-    var links = currRoom.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_LINK && structure.my && structure.cooldown == 0);
-                }
-            });
-    links.forEach(link => logicLink.run(link));   
-        
-
-    var spawnCreeps = true;
-
-    // if enough providers/miners present in room then turn all harvesters to miners
-    var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.memory.targetRoom == currRoom.name);
-    var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
-    var currRoomMiners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
-    
-    if((providers.length == 0 || currRoomMiners.length == 0) && harvesters.length < 2)
+    // iterate over spawns
+    for(var spawnName in config.spawnRoomConfig)
     {
-        // create an emergency harvester.
-        var currEnergy = Math.min(currRoom.energyAvailable,600);
-        spawnUtility.createCreep(currSpawn, 'harvester',
-                                Math.max(1,Math.floor(currEnergy/200)), // work count
-                                Math.max(1,Math.floor(currEnergy/200)), // carry count
-                                Math.max(1,Math.floor(currEnergy/200)), // move count
-                                0, currRoom.name);
-        spawnCreeps = false;
-    }
-    else if(providers.length == 0)
-    {
-        // create an emergency provider
-        var currEnergy = Math.min(currRoom.energyAvailable,800);
-        spawnUtility.createCreep(currSpawn, 'provider',
-                                0, // work count
-                                Math.max(1,Math.floor((2*currEnergy)/150) ), // carry count
-                                Math.max(1,Math.floor(currEnergy/150) ), // move count
-                                0, currRoom.name);
-        spawnCreeps = false;
-    }
-    else
-    {
-        // Turn all harvesters into miners as we have provider present
-        for(var creep of harvesters)
-        {
-            creep.memory.role = 'miner';
-            creep.memory.targetRoom = currRoom.name;
+        if (!config.spawnRoomConfig.hasOwnProperty(spawnName)) {
+            continue;
         }
-    }
-    
-    var rooms = [currRoom.name, "W82N9"/*, "W81N8"*/];
-    if(spawnCreeps)
-    {      
+
+        var currSpawn = Game.spawns[spawnName]; 
+        var currRoom = currSpawn.room;
+
+        var towers = currRoom.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_TOWER);
+                    }
+                });
+        towers.forEach(tower => logicTower.run(tower,currRoom));   
+
+        var links = currRoom.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_LINK && structure.cooldown == 0);
+                    }
+                });
+        links.forEach(link => logicLink.run(link));   
+            
+
+        var spawnCreeps = true;
+
+        // if enough providers/miners present in room then turn all harvesters to miners
+        var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.memory.targetRoom == currRoom.name);
+        var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
+        var currRoomMiners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
+        
+        if((providers.length == 0 || currRoomMiners.length == 0) && harvesters.length < 2)
+        {
+            // create an emergency harvester.
+            var currEnergy = Math.min(currRoom.energyAvailable,600);
+            spawnUtility.createCreep(currSpawn, 'harvester',
+                                    Math.max(1,Math.floor(currEnergy/200)), // work count
+                                    Math.max(1,Math.floor(currEnergy/200)), // carry count
+                                    Math.max(1,Math.floor(currEnergy/200)), // move count
+                                    0, currRoom.name);
+            spawnCreeps = false;
+        }
+        else if(providers.length == 0)
+        {
+            // create an emergency provider
+            var currEnergy = Math.min(currRoom.energyAvailable,800);
+            spawnUtility.createCreep(currSpawn, 'provider',
+                                    0, // work count
+                                    Math.max(1,Math.floor((2*currEnergy)/150) ), // carry count
+                                    Math.max(1,Math.floor(currEnergy/150) ), // move count
+                                    0, currRoom.name);
+            spawnCreeps = false;
+        }
+        else
+        {
+            // Turn all harvesters into miners as we have provider present
+            for(var creep of harvesters)
+            {
+                creep.memory.role = 'miner';
+                creep.memory.targetRoom = currRoom.name;
+            }
+        }
+        
+        var rooms = [currRoom.name, "W82N9"/*, "W81N8"*/];
+        if(spawnCreeps)
+        {      
+            for(var room of rooms)
+            {
+                for(var role in config.creepRoleConfigs)
+                {
+                    if (!config.creepRoleConfigs.hasOwnProperty(role)) {
+                        continue;
+                    }
+        
+                    if(spawnCreeps && spawnUtility.shouldCreateCreep(room,role)) {
+                        spawnCreeps = !spawnUtility.createCreep(currSpawn, role, room);
+                    }
+
+                }
+            }  
+        }
+
         for(var room of rooms)
         {
-            for(var role in config.creepRoleConfigs)
-            {
-                if(spawnCreeps && spawnUtility.shouldCreateCreep(room,role)) {
-                    spawnCreeps = !spawnUtility.createCreep(currSpawn, role, room);
-                }
-
-            }
-        }  
+            if(Game.rooms[room])
+                spawnUtility.pickupDroppedResources(Game.rooms[room]);
+        }
     }
 
-    for(var room of rooms)
-    {
-        if(Game.rooms[room])
-            spawnUtility.pickupDroppedResources(Game.rooms[room]);
-    }
-    
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         // skip creeps which have special role defined. 

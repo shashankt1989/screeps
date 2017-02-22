@@ -1,3 +1,4 @@
+var config = require('config');
 var roleClaim = {
 
     /** @param {Creep} creep **/

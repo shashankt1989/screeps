@@ -1,5 +1,6 @@
 var config = {
-
+    range : 10,
+    
     creepRoleConfigs: {
         "defender" : {
             "tough" : 3,
@@ -36,7 +37,7 @@ var config = {
     },
 
     spawnRoomConfig : {
-        "W81N9" : {
+        "Spawn1" : {
             "W81N9" : {
                 "miner" : 1,
                 "provider" : 1,

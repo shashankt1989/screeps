@@ -3,6 +3,7 @@ Miners just keep on mining and dropping the resource. Someone should pick it up.
 They dont have any carry parts. Unless they revert back from harvester. 
 Also miners have fixed source which is decided once they enter the room for the first time.
 */
+var config = require('config');
 
 var roleMiner = {
 
