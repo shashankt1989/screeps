@@ -68,6 +68,31 @@ module.exports.loop = function () {
         }
         
 
+        // get current room miners as top priority
+        var roles = ["miner","explorer","provider"];
+        for(var role of roles)
+        {       
+            if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,currRoom.name,role)) {
+                spawnUtility.createCreep(currSpawn, role, currRoom.name);
+                spawnCreeps = false;
+            }
+        }
+
+        // check if we need to defend any room
+        for(var room of rooms)
+        {
+            if(!Game.rooms[room])
+                continue;
+
+            var hostiles = Game.rooms[room].find(FIND_HOSTILE_CREEPS);
+            var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
+            if(spawnCreeps && defenders<=hostiles)
+            {
+                spawnUtility.createCreep(currSpawn, "defender", room);
+                spawnCreeps = false;
+            }
+        }
+
         var roles = ["miner","explorer","provider"];
         for(var room of rooms)
         {
@@ -77,21 +102,6 @@ module.exports.loop = function () {
                     spawnUtility.createCreep(currSpawn, role, room);
                     spawnCreeps = false;
                 }
-            }
-        }
-        
-        // check if we need to defend any room
-        for(var room of rooms)
-        {
-            if(!Game.rooms[room])
-                continue;
-
-            var hostiles = Game.rooms[room].find(FIND_HOSTILE_CREEPS);
-            var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
-            if(defenders<=hostiles)
-            {
-                spawnUtility.createCreep(currSpawn, "defender", room);
-                spawnCreeps = false;
             }
         }
 
