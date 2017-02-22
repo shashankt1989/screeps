@@ -83,10 +83,10 @@ module.exports.loop = function () {
         // check if we need to defend any room
         for(var room of rooms)
         {
-            if(!Game.room[room])
+            if(!Game.rooms[room])
                 continue;
 
-            var hostiles = Game.room[room].find(FIND_HOSTILE_CREEPS);
+            var hostiles = Game.rooms[room].find(FIND_HOSTILE_CREEPS);
             var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
             if(defenders<=hostiles)
             {
