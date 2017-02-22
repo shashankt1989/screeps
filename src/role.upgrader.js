@@ -4,9 +4,9 @@ var roleUpgrader = {
 
         var fContinue = true;
 
-        if(fContinue && creep.room.name != targetRoom)
+        if(fContinue && creep.room.name != creep.memory.targetRoom)
         {
-            var exitDir = Game.map.findExit(creep.room, targetRoom);
+            var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
             creep.moveTo(exit);
             fContinue = false;

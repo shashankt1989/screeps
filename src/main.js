@@ -106,7 +106,7 @@ module.exports.loop = function () {
             }
         }
 
-        var roles = ["builder","upgrader","claim"];
+        var roles = ["upgrader","builder","claim"];
         for(var room of rooms)
         {
             for(var role of roles)
