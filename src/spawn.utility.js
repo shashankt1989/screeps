@@ -46,11 +46,18 @@ var spawnUtility = {
             
     },
 
-    createCreep: function(spawn,role,workCount,carryCount,moveCount,claimCount,targetRoom) {
+    createCreep: function(spawn,role,targetRoom) {
+
         var attackCount = 0;
-        if(config.creepConfigs[role])
+        var workCount = 0;
+        var carryCount = 0;
+        var moveCount = 0;
+        var claimCount = 0;
+        var toughCount = 0;
+
+        if(config.creepRoleConfigs[role])
         {
-            var creepConfig = config.creepConfigs[role]; 
+            var creepConfig = config.creepRoleConfigs[role]; 
             if(creepConfig["move"])
                 moveCount = creepConfig["move"];
             if(creepConfig["attack"])
@@ -59,9 +66,18 @@ var spawnUtility = {
                 workCount = creepConfig["work"];
             if(creepConfig["carry"])
                 carryCount = creepConfig["carry"];
-
+            if(creepConfig["tough"])
+                toughCount = creepConfig["tough"];
+            if(creepConfig["claim"])
+                claimCount = creepConfig["claim"];
         }
+
         var typeArr = [];
+        
+        for(i=0;i<toughCount;i++)
+        {
+            typeArr.push(TOUGH);
+        }
         for(i=0;i<workCount;i++)
         {
             typeArr.push(WORK);
@@ -82,6 +98,7 @@ var spawnUtility = {
         {
             typeArr.push(ATTACK);
         }
+
         var retVal = spawn.createCreep(typeArr, role.toUpperCase() + "-" + targetRoom + "-" + Game.time.toString(), {role: role, targetRoom: targetRoom, sourceRoom: spawn.room.name});
         if(_.isString(retVal))
         {

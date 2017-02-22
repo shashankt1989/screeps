@@ -10,6 +10,8 @@ var roleMiner = require('role.miner');
 var roleClaim = require('role.claim');
 var roleProvider = require('role.provider');
 var roleDefender = require('role.defender');
+var config = require('config');
+
 
 module.exports.loop = function () {
 
@@ -85,35 +87,12 @@ module.exports.loop = function () {
     {      
         for(var room of rooms)
         {
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'provider')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'provider',0,6,3,0,room);
-            }
+            for(var role in config.creepRoleConfigs)
+            {
+                if(spawnCreeps && spawnUtility.shouldCreateCreep(room,role)) {
+                    spawnCreeps = !spawnUtility.createCreep(currSpawn, role, room);
+                }
 
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'claim')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'claim',0,0,1,1,room);
-            }
-
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'upgrader')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'upgrader',6,10,4,0, room);
-            }
-
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'miner')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'miner',6,0,3,0,room);
-            }
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'builder')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'builder',5,7,6,0,room);
-            }
-
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'repair')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'repair',1,3,2,0,room);
-            }
-
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'explorer')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'explorer',0,12,6,0,room);
-            }
-
-            if(spawnCreeps && spawnUtility.shouldCreateCreep(room,'defender')) {
-                spawnCreeps = !spawnUtility.createCreep(currSpawn, 'defender',0,0,0,0,room);
             }
         }  
     }
