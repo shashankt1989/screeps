@@ -63,21 +63,8 @@ module.exports.loop = function () {
         if((providers.length == 0 || miners.length == 0 || explorers.length == 0) && harvesters.length < 2)
         {
             // create an emergency harvester.
-            var currEnergy = Math.min(currRoom.energyAvailable,600);
-            spawnUtility.createCreep(currSpawn, 'harvester',
-                                    Math.max(1,Math.floor(currEnergy/200)), // work count
-                                    Math.max(1,Math.floor(currEnergy/200)), // carry count
-                                    Math.max(1,Math.floor(currEnergy/200)), // move count
-                                    0, currRoom.name);
+            spawnUtility.createCreep(currSpawn, 'harvester', currRoom.name);
             spawnCreeps = false;
-        }
-        else
-        {
-            // Turn all harvesters into miners as we have provider present
-            for(var creep of harvesters)
-            {
-                creep.memory.role = 'miner';
-            }
         }
         
         // check if we need to defend any room

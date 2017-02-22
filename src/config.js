@@ -37,6 +37,12 @@ var config = {
         "claim" : {
             "claim" : 1,
             "move" : 1
+        },
+        "harvester" : {
+            "move" : 1,
+            "carry" : 1,
+            "work" : 1
+
         }
     },
 
