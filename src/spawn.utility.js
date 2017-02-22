@@ -106,36 +106,13 @@ var spawnUtility = {
             return false;
     },
 
-    shouldCreateCreep: function(roomName,role) {
-        var creepCountConfig = {
-            "W81N9" : {
-                "miner" : 1,
-                "provider" : 1,
-                "repair" : 2,
-                "upgrader" : 3,
-                "builder" : 2,
-                "explorer" : 1,
+    shouldCreateCreep: function(spawnName,roomName,role) {
+        if(!config.spawnRoomConfig[spawnName])
+            return false;
 
-            },
-            "W82N9" : {
-                "miner" : 0,
-                "repair" : 0,
-                "claim" : 0,
-                "explorer" : 0,
-                "builder" : 0,
-                "defender" : 1
-            },
-            "W81N8" : {
-                "miner" : 1,
-                "repair" : 1,
-                "claim" : 1,
-                "explorer" : 1,
-                "builder" : 1
-            }
-        };
+        var creepCountConfig = config.spawnRoomConfig[spawnName];
 
         var maxCount = creepCountConfig[roomName] && creepCountConfig[roomName][role] ? creepCountConfig[roomName][role] : 0;
-
 
         if(maxCount == 0)
             return false;

@@ -35,6 +35,8 @@ module.exports.loop = function () {
         var currSpawn = Game.spawns[spawnName]; 
         var currRoom = currSpawn.room;
 
+        var rooms = [currRoom.name, "W82N9", "W81N8"];
+
         var towers = currRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_TOWER);
@@ -52,12 +54,13 @@ module.exports.loop = function () {
 
         var spawnCreeps = true;
 
-        // if enough providers/miners present in room then turn all harvesters to miners
+        // if enough providers/explorers/miners present in room then turn all harvesters to miners
         var providers = _.filter(Game.creeps, (creep) => creep.memory.role == 'provider' && creep.memory.targetRoom == currRoom.name);
+        var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer' && creep.memory.targetRoom == currRoom.name && creep.memory.sourceRoom == currRoom.name);
         var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
-        var currRoomMiners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
+        var miners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
         
-        if((providers.length == 0 || currRoomMiners.length == 0) && harvesters.length < 2)
+        if((providers.length == 0 || miners.length == 0 || explorers.length == 0) && harvesters.length < 2)
         {
             // create an emergency harvester.
             var currEnergy = Math.min(currRoom.energyAvailable,600);
@@ -68,44 +71,64 @@ module.exports.loop = function () {
                                     0, currRoom.name);
             spawnCreeps = false;
         }
-        else if(providers.length == 0)
-        {
-            // create an emergency provider
-            var currEnergy = Math.min(currRoom.energyAvailable,800);
-            spawnUtility.createCreep(currSpawn, 'provider',
-                                    0, // work count
-                                    Math.max(1,Math.floor((2*currEnergy)/150) ), // carry count
-                                    Math.max(1,Math.floor(currEnergy/150) ), // move count
-                                    0, currRoom.name);
-            spawnCreeps = false;
-        }
         else
         {
             // Turn all harvesters into miners as we have provider present
             for(var creep of harvesters)
             {
                 creep.memory.role = 'miner';
-                creep.memory.targetRoom = currRoom.name;
             }
         }
         
-        var rooms = [currRoom.name, "W82N9"/*, "W81N8"*/];
-        if(spawnCreeps)
-        {      
-            for(var room of rooms)
-            {
-                for(var role in config.creepRoleConfigs)
-                {
-                    if (!config.creepRoleConfigs.hasOwnProperty(role)) {
-                        continue;
-                    }
-        
-                    if(spawnCreeps && spawnUtility.shouldCreateCreep(room,role)) {
-                        spawnCreeps = !spawnUtility.createCreep(currSpawn, role, room);
-                    }
+        // check if we need to defend any room
+        for(var room of rooms)
+        {
+            if(!Game.room[room])
+                continue;
 
+            var hostiles = Game.room[room].find(FIND_HOSTILE_CREEPS);
+            var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
+            if(defenders<=hostiles)
+            {
+                spawnUtility.createCreep(currSpawn, "defender", room);
+                spawnCreeps = false;
+            }
+        }
+
+        var roles = ["miner","explorer","provider"];
+        for(var room of rooms)
+        {
+            for(var role of roles)
+            {       
+                if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,room,role)) {
+                    spawnUtility.createCreep(currSpawn, role, room);
+                    spawnCreeps = false;
                 }
-            }  
+            }
+        }
+
+        var roles = ["builder","upgrader","claim"];
+        for(var room of rooms)
+        {
+            for(var role of roles)
+            {       
+                if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,room,role)) {
+                    spawnUtility.createCreep(currSpawn, role, room);
+                    spawnCreeps = false;
+                }
+            }
+        }
+
+        var roles = ["repair"];
+        for(var room of rooms)
+        {
+            for(var role of roles)
+            {       
+                if(spawnCreeps && spawnUtility.shouldCreateCreep(spawnName,room,role)) {
+                    spawnUtility.createCreep(currSpawn, role, room);
+                    spawnCreeps = false;
+                }
+            }
         }
 
         for(var room of rooms)

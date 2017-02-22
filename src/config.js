@@ -1,6 +1,6 @@
 var config = {
     range : 10,
-    
+
     creepRoleConfigs: {
         "defender" : {
             "tough" : 3,
@@ -33,6 +33,10 @@ var config = {
             "move" : 4,
             "carry" : 10,
             "work" : 6
+        },
+        "claim" : {
+            "claim" : 1,
+            "move" : 1
         }
     },
 
@@ -41,18 +45,17 @@ var config = {
             "W81N9" : {
                 "miner" : 1,
                 "provider" : 1,
-                "repair" : 2,
-                "upgrader" : 3,
+                "repair" : 1,
+                "upgrader" : 2,
                 "builder" : 2,
                 "explorer" : 1,
 
             },
             "W82N9" : {
-                "miner" : 0,
-                "repair" : 0,
-                "explorer" : 0,
-                "builder" : 0,
-                "defender" : 1
+                "miner" : 2,
+                "repair" : 1,
+                "explorer" : 2,
+                "builder" : 1
             },
             "W81N8" : {
                 "miner" : 0,
