@@ -1,6 +1,6 @@
 var roleDefender = {
     run: function(creep) {
-        bool fContinue = true;
+        var fContinue = true;
         if(fContinue && creep.memory.targetRoom && creep.room.name != creep.memory.targetRoom)
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
