@@ -17,6 +17,31 @@ var roleDefender = {
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
+                fContinue = false;
+            }
+        }
+
+        if(fContinue)
+        {
+            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => {return !structure.my}});)
+            if(target)
+            {
+                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+                fContinue = false;
+            }
+        }
+
+        if(fContinue)
+        {
+            var target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {filter: (site) => {return !site.my}});
+            if(target)
+            {
+                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+                fContinue = false;
             }
         }
     }

@@ -77,7 +77,7 @@ module.exports.loop = function () {
             }
         }
 
-/*
+
         // check if we need to defend any room
         for(var room of rooms)
         {
@@ -92,7 +92,7 @@ module.exports.loop = function () {
                 spawnCreeps = false;
             }
         }
-*/
+
 
         var roles = ["miner","explorer","provider"];
         for(var room of rooms)
