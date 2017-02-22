@@ -25,9 +25,6 @@ var roleBuilder = {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#00ff00'}});
                     }
                 }
-                else
-                {
-                }
             }
             else {
                 var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});

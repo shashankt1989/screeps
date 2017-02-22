@@ -1,38 +1,39 @@
 var config = {
     range : 10,
+    harvesterCount : 2,
 
     creepRoleConfigs: {
         "defender" : {
-            "tough" : 6,
-            "move" : 5,
-            "attack" : 4
+            "tough" : 2,
+            "move" : 3,
+            "attack" : 1
         },
         "miner" : {
-            "move" : 3,
-            "work" : 6 
+            "move" : 1,
+            "work" : 1 
         },
         "explorer" : {
-            "move" : 6,
-            "carry" : 12
+            "move" : 2,
+            "carry" : 2
         },
         "provider" : {
-            "move" : 3,
-            "carry" : 6
+            "move" : 2,
+            "carry" : 2
         },
         "repair" : {
-            "move" : 2,
-            "carry" : 3,
+            "move" : 1,
+            "carry" : 1,
             "work" : 1
         },
         "builder" : {
-            "move" : 6,
-            "carry" : 7,
-            "work" : 5
+            "move" : 2,
+            "carry" : 1,
+            "work" : 1
         },
         "upgrader" : {
-            "move" : 4,
-            "carry" : 10,
-            "work" : 6
+            "move" : 1,
+            "carry" : 1,
+            "work" : 1
         },
         "claim" : {
             "claim" : 1,
@@ -48,27 +49,13 @@ var config = {
 
     spawnRoomConfig : {
         "Spawn1" : {
-            "W81N9" : {
-                "miner" : 1,
-                "provider" : 1,
+            "W28N81" : {
+                "miner" : 0,
+                "provider" : 0,
                 "repair" : 1,
                 "upgrader" : 2,
                 "builder" : 2,
-                "explorer" : 1,
-
-            },
-            "W82N9" : {
-                "miner" : 2,
-                "repair" : 1,
-                "explorer" : 2,
-                "builder" : 1
-            },
-            "W81N8" : {
-                "miner" : 0,
-                "repair" : 0,
-                "claim" : 0,
                 "explorer" : 0,
-                "builder" : 0
             }
         }
     }

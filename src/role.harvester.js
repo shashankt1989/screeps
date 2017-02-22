@@ -49,10 +49,6 @@ var roleHarvester = {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#aa0000'}});
                     }
                 }
-                else
-                {
-                    creep.moveTo(34,20, {visualizePathStyle: {stroke: '#aa0000'}});
-                }
             }
         }
     }

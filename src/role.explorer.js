@@ -69,7 +69,7 @@ var roleExplorer = {
                         // Choosing a random number between [100,200) and then modulus with number of sources
                         var index = (100 + Math.floor(Math.random()*100))%allSources.length;
                         source = allSources[index];
-                        creep.memory.sourceId = source.id;    
+                        creep.memory.sourceId = source.id;
                     }
                     else if(allSources.length == 1)
                     {

@@ -49,8 +49,7 @@ module.exports.loop = function () {
                         return (structure.structureType == STRUCTURE_LINK && structure.cooldown == 0);
                     }
                 });
-        links.forEach(link => logicLink.run(link));   
-            
+        links.forEach(link => logicLink.run(link));
 
         var spawnCreeps = true;
 
@@ -60,7 +59,7 @@ module.exports.loop = function () {
         var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
         var miners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
         
-        if((providers.length == 0 || miners.length == 0 || explorers.length == 0) && harvesters.length < 2)
+        if((providers.length == 0 || miners.length == 0 || explorers.length == 0) && harvesters.length < config.harvesterCount)
         {
             // create an emergency harvester.
             spawnUtility.createCreep(currSpawn, 'harvester', currRoom.name);
@@ -78,6 +77,7 @@ module.exports.loop = function () {
             }
         }
 
+/*
         // check if we need to defend any room
         for(var room of rooms)
         {
@@ -92,6 +92,7 @@ module.exports.loop = function () {
                 spawnCreeps = false;
             }
         }
+*/
 
         var roles = ["miner","explorer","provider"];
         for(var room of rooms)
