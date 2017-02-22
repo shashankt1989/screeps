@@ -48,7 +48,7 @@ var config = {
     },
 
     spawnRoomConfig : {
-        "Spawn1" : {
+        "W28N81" : {
             "W28N81" : {
                 "miner" : 0,
                 "provider" : 0,
