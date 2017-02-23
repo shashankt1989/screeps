@@ -78,7 +78,7 @@ var spawnUtility = {
 
         var totalEnergy = attackCount*80 + workCount*100 + moveCount*50 + carryCount*50 + toughCount*10 + claimCount*600;
 
-        if(totalEnergy < maxRes)
+        if(totalEnergy > maxRes)
             return false;
 
         attackCount = Math.floor(attackCount*maxRes/totalEnergy);
