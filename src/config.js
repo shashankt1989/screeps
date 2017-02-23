@@ -53,7 +53,7 @@ var config = {
     spawnRoomConfig : {
         "W88S29" : {
             "W88S29" : {
-                "miner" : 2,
+                "miner" : 1,
                 "provider" : 0,
                 "repair" : 0,
                 "upgrader" : 1,
@@ -61,7 +61,7 @@ var config = {
                 "explorer" : 1,
             },
             "W89S29" : {
-                "defender" : 2
+                "defender" : 0
             }
         }
     }
