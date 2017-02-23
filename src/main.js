@@ -35,7 +35,7 @@ module.exports.loop = function () {
         var currSpawn = Game.spawns[spawnName]; 
         var currRoom = currSpawn.room;
 
-        var rooms = [currRoom.name, "W88S29"];
+        var rooms = [currRoom.name, "W89S29"];
 
         var towers = currRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {
