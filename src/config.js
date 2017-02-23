@@ -16,12 +16,12 @@ var config = {
             "work" : 2 
         },
         "explorer" : {
-            "move" : 3,
-            "carry" : 3
+            "move" : 1,
+            "carry" : 1
         },
         "provider" : {
-            "move" : 2,
-            "carry" : 2
+            "move" : 1,
+            "carry" : 1
         },
         "repair" : {
             "move" : 1,
@@ -29,13 +29,13 @@ var config = {
             "work" : 1
         },
         "builder" : {
-            "move" : 2,
-            "carry" : 2,
+            "move" : 1,
+            "carry" : 1,
             "work" : 1
         },
         "upgrader" : {
-            "move" : 2,
-            "carry" : 2,
+            "move" : 1,
+            "carry" : 1,
             "work" : 1
         },
         "claim" : {
@@ -44,7 +44,7 @@ var config = {
         },
         "harvester" : {
             "move" : 1,
-            "carry" : 2,
+            "carry" : 1,
             "work" : 1
 
         }
@@ -56,8 +56,8 @@ var config = {
                 "miner" : 1,
                 "provider" : 0,
                 "repair" : 0,
-                "upgrader" : 2,
-                "builder" : 2,
+                "upgrader" : 1,
+                "builder" : 1,
                 "explorer" : 1,
             }
         }

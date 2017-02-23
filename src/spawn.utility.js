@@ -54,6 +54,8 @@ var spawnUtility = {
         var claimCount = 0;
         var toughCount = 0;
 
+        var maxRes = Math.floor(spawn.room.energyCapacityAvailable * .8);
+
         if(config.creepRoleConfigs[role])
         {
             var creepConfig = config.creepRoleConfigs[role]; 
@@ -69,7 +71,19 @@ var spawnUtility = {
                 toughCount = creepConfig["tough"];
             if(creepConfig["claim"])
                 claimCount = creepConfig["claim"];
+
+            if(creepConfig["max"])
+                maxRes = Math.min(maxRes, creepConfig["max"]);
         }
+
+        var totalEnergy = attackCount*80 + workCount*100 + moveCount*50 + carryCount*50 + toughCount*10 + claimCount*600;
+
+        attackCount = Math.floor(attackCount*maxRes/totalEnergy);
+        workCount = Math.floor(workCount*maxRes/totalEnergy);
+        carryCount = Math.floor(carryCount*maxRes/totalEnergy);
+        moveCount = Math.floor(moveCount*maxRes/totalEnergy);
+        claimCount = Math.floor(claimCount*maxRes/totalEnergy);
+        toughCount = Math.floor(toughCount*maxRes/totalEnergy);
 
         var typeArr = [];
         

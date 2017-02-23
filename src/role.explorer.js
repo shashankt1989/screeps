@@ -91,7 +91,8 @@ var roleExplorer = {
                             creep.memory.sourceId = source.id;
                     }
                 }
-                if(source) {
+                if(source)
+                {
                     // Creep should find resources lying around and the spawn utility logic should kick in and it should pick up the resource
                     
                     // As sometimes builders or repair creeps can be closer to the dropped res and continue picking it up and staying there
@@ -128,6 +129,8 @@ var roleExplorer = {
                     {
                         creep.moveTo(source);
                     }
+
+                    fContinue = false;
                 }
             }
         }
@@ -137,6 +140,7 @@ var roleExplorer = {
                 var exitDir = Game.map.findExit(creep.room, spawnRoom);
                 var exit = creep.pos.findClosestByRange(exitDir);
                 creep.moveTo(exit);
+                fContinue = false;
             }
             else
             {
@@ -155,8 +159,15 @@ var roleExplorer = {
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
                     }
+                    fContinue = false;
                 }
             }
+        }
+
+        // Nothing to do
+        if(fContinue && Game.flags[creep.pos.roomName])
+        {
+            creep.moveTo(Game.flags[creep.pos.roomName]);
         }
     }
 };
