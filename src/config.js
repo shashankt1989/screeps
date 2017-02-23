@@ -50,14 +50,14 @@ var config = {
     },
 
     spawnRoomConfig : {
-        "W28N81" : {
-            "W28N81" : {
-                "miner" : 2,
+        "W88S29" : {
+            "W88S29" : {
+                "miner" : 1,
                 "provider" : 0,
                 "repair" : 0,
-                "upgrader" : 3,
-                "builder" : 3,
-                "explorer" : 2,
+                "upgrader" : 2,
+                "builder" : 2,
+                "explorer" : 1,
             }
         }
     }

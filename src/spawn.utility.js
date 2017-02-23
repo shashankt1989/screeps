@@ -21,7 +21,9 @@ var spawnUtility = {
                     creep = creeps[0];
                 if(!creep)
                 {
-                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {return creep.carry.energy < (creep.carryCapacity / 2) || creep.memory.mining}});
+                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {
+                        return (creep.carry.energy < (creep.carryCapacity / 2) || (creep.memory.mining && creep.carry.energy < creep.carryCapacity))
+                    }});
                     if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;
                 }
@@ -29,6 +31,7 @@ var spawnUtility = {
                 {
                     creep.memory.specialRole = "collector";
                     creep.memory.collectorSourceId = source.id;
+                    creep.say("DR");
                     var retVal = creep.pickup(source);
                     if(retVal == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
