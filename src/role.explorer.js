@@ -133,7 +133,11 @@ var roleExplorer = {
                 // Dont transfer resouces to receiver links. The explorer creep is supposed to take resources from receiver links and put in storage.
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES,{
                     filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_LINK) && receiverLinks.indexOf(structure.id) == -1;
+                        return (structure.structureType == STRUCTURE_STORAGE ||
+                                structure.structureType == STRUCTURE_CONTAINER ||
+                                structure.structureType == STRUCTURE_SPAWN ||
+                                structure.structureType == STRUCTURE_EXTENSION ||
+                                structure.structureType == STRUCTURE_LINK) && receiverLinks.indexOf(structure.id) == -1;
                     }
                 });
 

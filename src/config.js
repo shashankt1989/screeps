@@ -1,6 +1,6 @@
 var config = {
     range : 10,
-    harvesterCount : 2,
+    harvesterCount : 1,
     wallsMax : 200000,
     wallsIncrement: 10000,
 
@@ -15,8 +15,8 @@ var config = {
             "work" : 3 
         },
         "explorer" : {
-            "move" : 2,
-            "carry" : 2
+            "move" : 4,
+            "carry" : 4
         },
         "provider" : {
             "move" : 2,
@@ -52,12 +52,12 @@ var config = {
     spawnRoomConfig : {
         "W28N81" : {
             "W28N81" : {
-                "miner" : 1,
+                "miner" : 2,
                 "provider" : 0,
-                "repair" : 1,
+                "repair" : 0,
                 "upgrader" : 3,
-                "builder" : 2,
-                "explorer" : 0,
+                "builder" : 3,
+                "explorer" : 2,
             }
         }
     }

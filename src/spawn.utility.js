@@ -21,7 +21,7 @@ var spawnUtility = {
                     creep = creeps[0];
                 if(!creep)
                 {
-                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: function(creep) {return creep.carry.energy < creep.carryCapacity}});
+                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {return creep.carry.energy == 0 && creep.carryCapacity > 0}});
                     if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;
                 }
@@ -29,13 +29,11 @@ var spawnUtility = {
                 {
                     creep.memory.specialRole = "collector";
                     creep.memory.collectorSourceId = source.id;
-                    if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
+                    if(retVal == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
-                    else
-                    {
-                        // resource either picked up or something happened. revert back to original role
-                        creep.memory.specialRole = undefined;
+                    else if(retVal == OK || retVal == ERR_FULL) {
+                        creep.memory.collectorSourceId = undefined;
                     }
                 }
             }
