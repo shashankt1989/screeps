@@ -29,6 +29,7 @@ var spawnUtility = {
                 {
                     creep.memory.specialRole = "collector";
                     creep.memory.collectorSourceId = source.id;
+                    var retVal = creep.pickuo(source);
                     if(retVal == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
