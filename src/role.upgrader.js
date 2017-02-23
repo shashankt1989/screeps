@@ -23,11 +23,13 @@ var roleUpgrader = {
             }
 
             if(creep.memory.upgrading) {
+                creep.memory.mining = false;
                 if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#0000ff'}});
                 }
             }
             else {
+                creep.memory.mining = true;
                 // find a storage with non zero energy
                 var targets = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {

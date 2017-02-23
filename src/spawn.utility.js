@@ -21,7 +21,7 @@ var spawnUtility = {
                     creep = creeps[0];
                 if(!creep)
                 {
-                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {return creep.carry.energy < (creep.carryCapacity / 2)}});
+                    creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {return creep.carry.energy < (creep.carryCapacity / 2) || creep.memory.mining}});
                     if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;
                 }
