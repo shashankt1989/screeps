@@ -6,13 +6,13 @@ var config = {
 
     creepRoleConfigs: {
         "defender" : {
-            "tough" : 2,
-            "move" : 3,
+            "tough" : 0,
+            "move" : 1,
             "attack" : 1
         },
         "miner" : {
             "move" : 1,
-            "work" : 1 
+            "work" : 3 
         },
         "explorer" : {
             "move" : 2,
@@ -52,7 +52,7 @@ var config = {
     spawnRoomConfig : {
         "W28N81" : {
             "W28N81" : {
-                "miner" : 0,
+                "miner" : 1,
                 "provider" : 0,
                 "repair" : 1,
                 "upgrader" : 3,
