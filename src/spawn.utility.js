@@ -54,7 +54,7 @@ var spawnUtility = {
         var claimCount = 0;
         var toughCount = 0;
 
-        var maxRes = Math.floor(spawn.room.energyCapacityAvailable * .8);
+        var maxRes = Math.floor(spawn.room.energyCapacityAvailable);
 
         if(config.creepRoleConfigs[role])
         {
@@ -77,6 +77,9 @@ var spawnUtility = {
         }
 
         var totalEnergy = attackCount*80 + workCount*100 + moveCount*50 + carryCount*50 + toughCount*10 + claimCount*600;
+
+        if(totalEnergy < maxRes)
+            return false;
 
         attackCount = Math.floor(attackCount*maxRes/totalEnergy);
         workCount = Math.floor(workCount*maxRes/totalEnergy);
