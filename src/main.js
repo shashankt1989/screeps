@@ -94,7 +94,7 @@ module.exports.loop = function () {
         }
 
 
-        var roles = ["miner","explorer","provider"];
+        var roles = ["miner","explorer","provider","defender"];
         for(var room of rooms)
         {
             for(var role of roles)
