@@ -13,11 +13,11 @@ var config = {
         },
         "miner" : {
             "move" : 1,
-            "work" : 3 
+            "work" : 2 
         },
         "explorer" : {
-            "move" : 4,
-            "carry" : 4
+            "move" : 3,
+            "carry" : 3
         },
         "provider" : {
             "move" : 2,
@@ -36,7 +36,7 @@ var config = {
         "upgrader" : {
             "move" : 2,
             "carry" : 2,
-            "work" : 2
+            "work" : 1
         },
         "claim" : {
             "claim" : 1,
