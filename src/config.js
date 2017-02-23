@@ -1,6 +1,8 @@
 var config = {
     range : 10,
     harvesterCount : 2,
+    wallsMax : 200000,
+    wallsIncrement: 10000,
 
     creepRoleConfigs: {
         "defender" : {
