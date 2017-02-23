@@ -26,28 +26,39 @@ var roleMiner = {
             if(!source)
             {
                 // need to find a source for this creep. of all the sources find one with max resources present
-                var allSources = creep.room.find(FIND_SOURCES);
-                if(allSources.length > 1)
+                // If only one miner in the room then find the closest one.
+                var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
+                if(miners.length > 1)
                 {
-                    var maxEnergy = -1;
-                    for(var currSource of allSources)
+                    var allSources = creep.room.find(FIND_SOURCES);
+                    if(allSources.length > 1)
                     {
-                        if(currSource.energy > maxEnergy)
+                        var maxEnergy = -1;
+                        for(var currSource of allSources)
                         {
-                            maxEnergy = currSource.energy; 
-                            source = currSource;
+                            if(currSource.energy > maxEnergy)
+                            {
+                                maxEnergy = currSource.energy; 
+                                source = currSource;
+                            }
                         }
+                        creep.memory.sourceId = source.id;    
                     }
-                    creep.memory.sourceId = source.id;    
-                }
-                else if(allSources.length == 1)
-                {
-                    source = allSources[0];
-                    creep.memory.sourceId = source.id;
+                    else if(allSources.length == 1)
+                    {
+                        source = allSources[0];
+                        creep.memory.sourceId = source.id;
+                    }
+                    else
+                    {
+                        console.log(creep.memory.targetRoom + " is missing energy source");
+                    }
                 }
                 else
                 {
-                    console.log(creep.memory.targetRoom + " is missing energy source");
+                    source = creep.pos.findClosestByRange(FIND_SOURCES);
+                    if(source)
+                        creep.memory.sourceId = source.id;
                 }
             }
             if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
