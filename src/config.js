@@ -59,6 +59,9 @@ var config = {
                 "upgrader" : 1,
                 "builder" : 1,
                 "explorer" : 1,
+            },
+            "W89S29" : {
+                "defender" : 2
             }
         }
     }

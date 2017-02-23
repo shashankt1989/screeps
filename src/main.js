@@ -78,8 +78,9 @@ module.exports.loop = function () {
 
 
         // check if we need to defend any room
-        for(var room of rooms)
+        //for(var room of rooms)
         {
+            var room = currRoom.name;
             if(!Game.rooms[room])
                 continue;
 
