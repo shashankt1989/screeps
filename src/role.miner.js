@@ -27,7 +27,7 @@ var roleMiner = {
             {
                 // need to find a source for this creep. of all the sources find one with max resources present
                 // If only one miner in the room then find the closest one.
-                var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
+                var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == creep.pos.roomName && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
                 if(miners.length > 1)
                 {
                     var allSources = creep.room.find(FIND_SOURCES);

@@ -63,7 +63,7 @@ var roleExplorer = {
                 if(!source)
                 {
                     // need to find a source for this creep. pick a random source if more than one explorer present
-                    var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer' && creep.memory.targetRoom == currRoom.name && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
+                    var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer' && creep.memory.targetRoom == creep.pos.roomName && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
                     if(explorers.length > 1)
                     {
                         var allSources = creep.room.find(FIND_SOURCES);
