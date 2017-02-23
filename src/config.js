@@ -29,13 +29,13 @@ var config = {
         },
         "builder" : {
             "move" : 2,
-            "carry" : 1,
+            "carry" : 2,
             "work" : 1
         },
         "upgrader" : {
-            "move" : 1,
-            "carry" : 1,
-            "work" : 1
+            "move" : 2,
+            "carry" : 2,
+            "work" : 2
         },
         "claim" : {
             "claim" : 1,
@@ -43,7 +43,7 @@ var config = {
         },
         "harvester" : {
             "move" : 1,
-            "carry" : 1,
+            "carry" : 2,
             "work" : 1
 
         }
@@ -55,7 +55,7 @@ var config = {
                 "miner" : 0,
                 "provider" : 0,
                 "repair" : 1,
-                "upgrader" : 2,
+                "upgrader" : 3,
                 "builder" : 2,
                 "explorer" : 0,
             }
