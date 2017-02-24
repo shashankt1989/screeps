@@ -8,6 +8,19 @@ var logicTower = {
         {
             tower.attack(targets[0]);
         }
+        // ensure ramparts are not completely destroyed!
+        else
+        {
+            targets = currRoom.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_RAMPART) && structure.hits < 500
+                }
+            });
+            
+            if(targets.length > 0) {
+                tower.repair(targets[0]);
+            }
+        }
    }
 };
 

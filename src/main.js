@@ -85,10 +85,9 @@ module.exports.loop = function () {
         }
 
 
-        // check if we need to defend any room
-        //for(var room of rooms)
+        // check if we need to defend any room, activate safe mode if unable to defend.
+        for(var room of rooms)
         {
-            var room = currRoom.name;
             if(!Game.rooms[room])
                 continue;
 
@@ -96,7 +95,8 @@ module.exports.loop = function () {
             var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
             if(spawnCreeps && hostiles.length > 0 && defenders.length < hostiles.length)
             {
-                spawnUtility.createCreep(currSpawn, "defender", room);
+                if(!spawnUtility.createCreep(currSpawn, "defender", room))
+                    spawnUtility.activateSafeMode(Game.rooms[room]);
                 spawnCreeps = false;
             }
         }

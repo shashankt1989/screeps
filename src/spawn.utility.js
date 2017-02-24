@@ -176,6 +176,11 @@ var spawnUtility = {
 
         //console.log("Should create creep of type " + role + " for room " + roomName);
         return true;
+    },
+
+    activateSafeMode: function(room) {
+        if(room && room.controller && room.controller.activateSafeMode())
+            Game.notify("Activating safe mode in room - " + room.name, 0);
     }
 };
 
