@@ -9,7 +9,8 @@ var config = {
         "defender" : {
             "tough" : 0,
             "move" : 1,
-            "attack" : 1
+            "attack" : 1,
+            "max" : 130
         },
         "miner" : {
             "move" : 1,
@@ -17,16 +18,18 @@ var config = {
         },
         "explorer" : {
             "move" : 1,
-            "carry" : 1
+            "carry" : 2
         },
         "provider" : {
             "move" : 1,
-            "carry" : 1
+            "carry" : 1,
+            "max" : 100
         },
         "repair" : {
             "move" : 1,
             "carry" : 1,
-            "work" : 1
+            "work" : 1,
+            "max" : 200
         },
         "builder" : {
             "move" : 1,
@@ -35,8 +38,8 @@ var config = {
         },
         "upgrader" : {
             "move" : 1,
-            "carry" : 1,
-            "work" : 1
+            "carry" : 2,
+            "work" : 2
         },
         "claim" : {
             "claim" : 1,
@@ -53,15 +56,15 @@ var config = {
     spawnRoomConfig : {
         "W88S29" : {
             "W88S29" : {
-                "miner" : 1,
-                "provider" : 0,
-                "repair" : 0,
-                "upgrader" : 1,
-                "builder" : 1,
-                "explorer" : 1,
+                "miner" : 2,
+                "provider" : 1,
+                "repair" : 1,
+                "upgrader" : 3,
+                "builder" : 3,
+                "explorer" : 3,
             },
             "W89S29" : {
-                "defender" : 0
+                "explorer" : 1
             }
         }
     }

@@ -8,6 +8,13 @@ var spawnUtility = {
         {
             collector.memory.specialRole = undefined;
         }
+        // Clear out invalid SourceId's
+        var collectors = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId != undefined);
+        for(var collector of collectors)
+        {
+            if(!Game.getObjectById(creep.memory.collectorSourceId))
+                creep.memory.collectorSourceId = undefined;
+        }
 
         var sources = room.find(FIND_DROPPED_RESOURCES);
         if(sources.length > 0)
@@ -22,7 +29,7 @@ var spawnUtility = {
                 if(!creep)
                 {
                     creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {
-                        return ((creep.carry.energy == 0 && creep.carryCapacity > 0) || (creep.memory.mining && creep.carry.energy < creep.carryCapacity))
+                        return ((creep.carry.energy == 0 && creep.carryCapacity > 0) || (creep.memory.mining && creep.carry.energy < creep.carryCapacity)) && creep.memory.collectorSourceId == undefined
                     }});
                     if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;

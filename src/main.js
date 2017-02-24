@@ -35,14 +35,20 @@ module.exports.loop = function () {
         var currSpawn = Game.spawns[spawnName]; 
         var currRoom = currSpawn.room;
 
-        var rooms = [currRoom.name, "W89S29"];
+        for(var roomName in config.spawnRoomConfig[spawnName])
+        {
+            if (!config.spawnRoomConfig[spawnName].hasOwnProperty(roomName)) {
+                continue;
+            }
+            rooms.push(roomName);
+        }
 
         var towers = currRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_TOWER);
                     }
                 });
-        towers.forEach(tower => logicTower.run(tower,currRoom));   
+        towers.forEach(tower => logicTower.run(tower,currRoom));
 
         var links = currRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {

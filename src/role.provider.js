@@ -23,8 +23,10 @@ var roleProvider = {
             }
             else
             {
-                // move to neutral location and wait.
-                creep.moveTo(35,11);
+                if(Game.flags[creep.pos.roomName])
+                {
+                    creep.moveTo(Game.flags[creep.pos.roomName]);
+                }
             }
         }
         else {
@@ -41,8 +43,10 @@ var roleProvider = {
             }
             else
             {
-                // move to neutral location and wait.
-                creep.moveTo(35,11);
+                if(Game.flags[creep.pos.roomName])
+                {
+                    creep.moveTo(Game.flags[creep.pos.roomName]);
+                }
             }
         }
     }

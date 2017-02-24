@@ -23,7 +23,21 @@ var roleExplorer = {
                 creep.memory.sourceId = undefined;
                 fContinue = false;
             }
-        
+
+            if(fContinue)
+            {
+                // try to find enemy containers storage and steal from that
+                var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: function(structure) {
+                    return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 0}});
+                if(target)
+                {
+                    if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target, {visualizePathStyle: {stroke: '#00aa00'}});
+                    }
+                    fContinue = false;
+                }
+            }
+
             if(fContinue)
             {
                 // try to find a nearby link first. use that to withdraw energy. 
@@ -135,6 +149,7 @@ var roleExplorer = {
             }
         }
         else {
+            creep.memory.collectorSourceId = undefined;
             if(creep.room != spawnRoom)
             {
                 var exitDir = Game.map.findExit(creep.room, spawnRoom);
@@ -147,8 +162,8 @@ var roleExplorer = {
                 // Dont transfer resouces to receiver links. The explorer creep is supposed to take resources from receiver links and put in storage.
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES,{
                     filter: (structure) => {
-                        return  ((structure.structureType == STRUCTURE_STORAGE ||
                                 structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity) || 
+                        return  ((structure.structureType == STRUCTURE_STORAGE ||
                                 ((structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_EXTENSION) && structure.energy < structure.energyCapacity) ||
                                 (structure.structureType == STRUCTURE_LINK && receiverLinks.indexOf(structure.id) == -1);
