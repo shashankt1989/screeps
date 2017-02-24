@@ -35,6 +35,7 @@ module.exports.loop = function () {
         var currSpawn = Game.spawns[spawnName]; 
         var currRoom = currSpawn.room;
 
+        var rooms = [];
         for(var roomName in config.spawnRoomConfig[spawnName])
         {
             if (!config.spawnRoomConfig[spawnName].hasOwnProperty(roomName)) {
