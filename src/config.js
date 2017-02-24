@@ -27,9 +27,9 @@ var config = {
         },
         "repair" : {
             "move" : 1,
-            "carry" : 1,
-            "work" : 1,
-            "max" : 200
+            "carry" : 2,
+            "work" : 2,
+            "max" : 350
         },
         "builder" : {
             "move" : 1,
@@ -59,7 +59,7 @@ var config = {
             "W88S29" : {
                 "miner" : 2,
                 "provider" : 1,
-                "repair" : 1,
+                "repair" : 3,
                 "upgrader" : 3,
                 "builder" : 3,
                 "explorer" : 2,
