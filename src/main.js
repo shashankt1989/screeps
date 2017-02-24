@@ -63,9 +63,10 @@ module.exports.loop = function () {
         // if enough providers/explorers/miners present in room then turn all harvesters to miners
         var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer' && creep.memory.targetRoom == currRoom.name && creep.memory.sourceRoom == currRoom.name);
         var harvesters = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'harvester' && creep.memory.targetRoom == currRoom.name);
+        var providers = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'provider' && creep.memory.targetRoom == currRoom.name);
         var miners = _.filter(Game.creeps, (creep) =>  creep.memory.role == 'miner' && creep.memory.targetRoom == currRoom.name);
         
-        if((miners.length == 0 || explorers.length == 0) && harvesters.length < config.harvesterCount)
+        if((providers.length == 0 || miners.length == 0 || explorers.length == 0) && harvesters.length < config.harvesterCount)
         {
             // create an emergency harvester.
             spawnUtility.createCreep(currSpawn, 'harvester', currRoom.name);
