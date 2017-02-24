@@ -48,7 +48,8 @@ var config = {
         "harvester" : {
             "move" : 1,
             "carry" : 1,
-            "work" : 1
+            "work" : 1,
+            "max" : 200
 
         }
     },
