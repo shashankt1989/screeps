@@ -12,8 +12,8 @@ var spawnUtility = {
         var collectors = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId != undefined);
         for(var collector of collectors)
         {
-            if(!Game.getObjectById(creep.memory.collectorSourceId))
-                creep.memory.collectorSourceId = undefined;
+            if(!Game.getObjectById(collector.memory.collectorSourceId))
+                collector.memory.collectorSourceId = undefined;
         }
 
         var sources = room.find(FIND_DROPPED_RESOURCES);
