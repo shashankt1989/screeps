@@ -27,8 +27,8 @@ var roleExplorer = {
             if(fContinue)
             {
                 // try to find enemy containers storage and steal from that
-                var target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: function(structure) {
-                    return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 0}});
+                var target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: function(structure) {
+                    return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && !structure.my && structure.store[RESOURCE_ENERGY] > 0}});
                 if(target)
                 {
                     if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

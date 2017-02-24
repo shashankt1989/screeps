@@ -62,10 +62,10 @@ var config = {
                 "repair" : 1,
                 "upgrader" : 3,
                 "builder" : 3,
-                "explorer" : 3,
+                "explorer" : 2,
             },
             "W89S29" : {
-                "explorer" : 1
+                "explorer" : 0
             }
         }
     }
