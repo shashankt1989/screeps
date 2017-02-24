@@ -90,10 +90,13 @@ var roleRepair = {
 
                 if(fContinue && !creep.memory.target)
                 {
-                    // try to find a non rampart owned structure
-                    var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    // try to find a non rampart/wall/road structure
+                    var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: (structure) => {
-                            return structure.structureType != STRUCTURE_RAMPART && structure.hits < (structure.hitsMax /1.5)
+                            return  structure.structureType != STRUCTURE_RAMPART && 
+                                    structure.structureType != STRUCTURE_WALL && 
+                                    structure.structureType != STRUCTURE_ROAD && 
+                                    structure.hits < (structure.hitsMax /1.5)
                         }
                     });
                     if(target) {
