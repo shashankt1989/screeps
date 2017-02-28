@@ -7,7 +7,7 @@ var logicLink = {
         {
             var target = link.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity && config.receiverLinks.indexOf(structure.id) != -1)
+                    return (structure.structureType == STRUCTURE_LINK && structure.energy == 0 && config.receiverLinks.indexOf(structure.id) != -1)
                 }
             });
             if(target)
