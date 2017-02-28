@@ -63,8 +63,8 @@ var config = {
                 "miner" : 2,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 3,
-                "builder" : 3,
+                "upgrader" : 2,
+                "builder" : 2,
                 "explorer" : 2
             },
             "W89S29" : {
@@ -77,7 +77,7 @@ var config = {
                 "provider" : 1,
                 "repair" : 1,
                 "upgrader" : 2,
-                "builder" : 3,
+                "builder" : 2,
                 "explorer" : 2
             }
         }
