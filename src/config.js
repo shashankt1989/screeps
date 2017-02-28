@@ -4,6 +4,9 @@ var config = {
     wallsMax : 300000,
     wallsIncrement: 10000,
     minCreepTicks : 75,
+    directions : [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,TOP_LEFT],
+
+    receiverLinks : ["58b50c1a2b2c03501a33cffd"],
 
     creepRoleConfigs: {
         "defender" : {

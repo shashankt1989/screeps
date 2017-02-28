@@ -8,8 +8,6 @@ var roleExplorer = {
     run: function(creep) {
         var targetRoom = creep.memory.targetRoom;
         var spawnRoom = Game.rooms[creep.memory.sourceRoom];
-        var receiverLinks = ["58a5f97f83b51f338b909f73"];
-        var directions = [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,TOP_LEFT];
 
         if(creep.carry.energy == 0)
         {
@@ -42,7 +40,7 @@ var roleExplorer = {
             {
                 // try to find a nearby link first. use that to withdraw energy. 
                 var targets = creep.pos.findInRange(FIND_STRUCTURES, config.range,
-                    { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0 && receiverLinks.indexOf(structure.id) != -1}});
+                    { filter: function(structure) {return structure.structureType == STRUCTURE_LINK && structure.energy > 0 && config.receiverLinks.indexOf(structure.id) != -1}});
                 if(targets.length > 0)
                 {
                     if(creep.withdraw(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -117,8 +115,8 @@ var roleExplorer = {
                     {
                         // just move in a random direction to create space. random movement should sometime remove the deadlock
                         // also null the sourceId in memory so that explorers dont keep waiting at a mine without any miners
-                        var index = (100 + Math.floor(Math.random()*100))%directions.length;
-                        creep.move(directions[index]);
+                        var index = (100 + Math.floor(Math.random()*100))%config.directions.length;
+                        creep.move(config.directions[index]);
                         creep.memory.sourceId = undefined;
                     }
                     // try to proactively find dropped resources when in range of 10.
@@ -166,7 +164,7 @@ var roleExplorer = {
                                 structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity) || 
                                 ((structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_EXTENSION) && structure.energy < structure.energyCapacity) ||
-                                (structure.structureType == STRUCTURE_LINK && receiverLinks.indexOf(structure.id) == -1);
+                                (structure.structureType == STRUCTURE_LINK && config.receiverLinks.indexOf(structure.id) == -1);
                     }
                 });
 

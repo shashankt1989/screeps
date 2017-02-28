@@ -1,19 +1,13 @@
+var config = require('config');
+
 var logicLink = {
 
     run: function(link) {
-        var range = 10;
-
-        var targets = link.pos.findInRange(FIND_STRUCTURES, range, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_STORAGE)
-            }
-        });
-        // In case it has a storage nearby then this link is not supposed to send back resources. 
-        if (targets.length == 0)
+        if (config.receiverLinks.indexOf(link.id) == -1)
         {
-            var target = link.pos.findClosestByRange(FIND_STRUCTURES, {
+            var target = link.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity)
+                    return (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity && config.receiverLinks.indexOf(structure.id) != -1)
                 }
             });
             if(target)

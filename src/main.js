@@ -95,7 +95,7 @@ module.exports.loop = function () {
             var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
             if(spawnCreeps && hostiles.length > 0 && defenders.length < hostiles.length)
             {
-                if(!spawnUtility.createCreep(currSpawn, "defender", room))
+                if(!spawnUtility.createCreep(currSpawn, "defender", room) && hostiles.length > 1)
                     spawnUtility.activateSafeMode(Game.rooms[room]);
                 spawnCreeps = false;
             }
