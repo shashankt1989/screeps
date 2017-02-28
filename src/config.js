@@ -8,6 +8,8 @@ var config = {
 
     receiverLinks : ["58b5a867215a75a42fe8272c"],
 
+    attackTargets : [],
+
     creepRoleConfigs: {
         "defender" : {
             "tough" : 0,

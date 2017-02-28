@@ -25,24 +25,22 @@ var roleMiner = {
             }
             if(!source)
             {
-                // need to find a source for this creep. of all the sources find one with max resources present
-                // If only one miner in the room then find the closest one.
+                // need to find a source for this creep.
                 var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.targetRoom == creep.pos.roomName && (creep.spawning || creep.ticksToLive > config.minCreepTicks));
                 if(miners.length > 1)
                 {
+                    // find the source without any associated creep.
                     var allSources = creep.room.find(FIND_SOURCES);
                     if(allSources.length > 1)
                     {
-                        var maxEnergy = -1;
                         for(var currSource of allSources)
                         {
-                            if(currSource.energy > maxEnergy)
-                            {
-                                maxEnergy = currSource.energy; 
-                                source = currSource;
-                            }
+                            source = currSource;
+                            // break the loop if no other miner associated with this source
+                            if((_.filter(miners, (creep) => creep.memory.sourceId == currSource.id)).length == 0)
+                                break;
                         }
-                        creep.memory.sourceId = source.id;    
+                        creep.memory.sourceId = source.id;
                     }
                     else if(allSources.length == 1)
                     {
@@ -51,9 +49,10 @@ var roleMiner = {
                     }
                     else
                     {
-                        console.log(creep.memory.targetRoom + " is missing energy source");
+                        console.log(creep.memory.targetRoom + " is missing energy source. WTH are miner doing here?");
                     }
                 }
+                // If only one miner in the room then find the closest one.
                 else
                 {
                     source = creep.pos.findClosestByRange(FIND_SOURCES);

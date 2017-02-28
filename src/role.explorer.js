@@ -106,7 +106,7 @@ var roleExplorer = {
                 if(source)
                 {
                     // Creep should find resources lying around and the spawn utility logic should kick in and it should pick up the resource
-                    
+
                     // As sometimes builders or repair creeps can be closer to the dropped res and continue picking it up and staying there
                     // adding special logic as well
 
@@ -172,6 +172,8 @@ var roleExplorer = {
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
                     }
+                    // Look for new random source. Just introducing randomness.
+                    creep.memory.sourceId = undefined;
                     fContinue = false;
                 }
             }
