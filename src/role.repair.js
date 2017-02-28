@@ -70,7 +70,7 @@ var roleRepair = {
                     // fill the target tower if any
                     if(currTower) {
                         if(creep.transfer(currTower,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(currTower, {visualizePathStyle: {stroke: '#00aa00'}});
+                            creep.moveTo(currTower, {visualizePathStyle: {stroke: '#00aa00'}, maxRooms : 1});
                         }
                         fContinue= false;
                     }
@@ -155,7 +155,7 @@ var roleRepair = {
                     }});
                     if(target) {
                         if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target);
+                            creep.moveTo(target, {maxRooms : 1});
                         }
                         fContinue = false;
                     }
@@ -167,7 +167,7 @@ var roleRepair = {
                     var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
                     if(source) {
                         if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                            creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}, maxRooms : 1});
                         }
                         fContinue = false;
                     }
