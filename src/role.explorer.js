@@ -164,7 +164,7 @@ var roleExplorer = {
                                 structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity) || 
                                 ((structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_EXTENSION) && structure.energy < structure.energyCapacity) ||
-                                (structure.structureType == STRUCTURE_LINK && config.receiverLinks.indexOf(structure.id) == -1);
+                                (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity && config.receiverLinks.indexOf(structure.id) == -1);
                     }
                 });
 

@@ -6,7 +6,7 @@ var config = {
     minCreepTicks : 75,
     directions : [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,TOP_LEFT],
 
-    receiverLinks : ["58b50c1a2b2c03501a33cffd"],
+    receiverLinks : ["58b5a867215a75a42fe8272c"],
 
     creepRoleConfigs: {
         "defender" : {
