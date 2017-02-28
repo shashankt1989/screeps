@@ -138,7 +138,7 @@ var roleRepair = {
                 if(fContinue && creep.memory.target) {
                     var currRepairTarget = Game.getObjectById(creep.memory.target);
                     if(creep.repair(currRepairTarget) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(currRepairTarget, {visualizePathStyle: {stroke: '#00aa00'}});
+                        creep.moveTo(currRepairTarget, {visualizePathStyle: {stroke: '#00aa00'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
