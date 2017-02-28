@@ -1,7 +1,7 @@
 var config = {
     range : 10,
     harvesterCount : 1,
-    wallsMax : 200000,
+    wallsMax : 300000,
     wallsIncrement: 10000,
     minCreepTicks : 75,
 
@@ -59,13 +59,23 @@ var config = {
             "W88S29" : {
                 "miner" : 2,
                 "provider" : 1,
-                "repair" : 3,
+                "repair" : 1,
                 "upgrader" : 3,
                 "builder" : 3,
-                "explorer" : 2,
+                "explorer" : 2
             },
             "W89S29" : {
-                "explorer" : 0
+                "explorer" : 1
+            }
+        },
+        "W89S29" : {
+            "W89S29" : {
+                "miner" : 2,
+                "provider" : 1,
+                "repair" : 1,
+                "upgrader" : 2,
+                "builder" : 3,
+                "explorer" : 2
             }
         }
     }
