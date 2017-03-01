@@ -88,7 +88,9 @@ var config = {
                 "builder" : 2,
                 "explorer" : 2
             },
-            "W89S29" : {
+            "W87S29" : {
+                "miner" : 1,
+                "claim" : 1,
                 "explorer" : 1
             }
         },

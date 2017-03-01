@@ -1,15 +1,15 @@
 var config = require('config');
 
 var spawnUtility = {
-    pickupDroppedResources: function(room) {   
+    pickupDroppedResources: function(room) {
         // find all creeps with collector role and revert them back. The special role will be added again in case they are selected.
-        var collectors = _.filter(Game.creeps, (creep) => creep.memory.specialRole == 'collector');
+        var collectors = _.filter(Game.creeps, (creep) => creep.memory.specialRole == 'collector' && creep.pos.roomName == room.name);
         for(var collector of collectors)
         {
             collector.memory.specialRole = undefined;
         }
         // Clear out invalid SourceId's
-        var collectors = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId != undefined);
+        var collectors = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId != undefined && creep.pos.roomName == room.name);
         for(var collector of collectors)
         {
             if(!Game.getObjectById(collector.memory.collectorSourceId))
@@ -23,13 +23,14 @@ var spawnUtility = {
             {
                 var creep = null;
                 // check if we already have a creep associated with this
-                var creeps = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId == source.id );
+                var creeps = _.filter(Game.creeps, (creep) => creep.memory.collectorSourceId == source.id && creep.pos.roomName == room.name);
                 if(creeps.length > 0)
                     creep = creeps[0];
                 if(!creep)
                 {
                     creep = source.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => {
-                        return ((creep.carry.energy == 0 && creep.carryCapacity > 0) || (creep.memory.mining && creep.carry.energy < creep.carryCapacity)) && creep.memory.collectorSourceId == undefined
+                        return ((creep.carry.energy == 0 && creep.carryCapacity > 0) || (creep.memory.mining && creep.carry.energy < creep.carryCapacity))
+                                && creep.memory.collectorSourceId == undefined && creep.pos.roomName == room.name
                     }});
                     if(!creep || !source.pos.inRangeTo(creep,config.range))
                         creep = null;
