@@ -81,9 +81,13 @@ var roleExplorer = {
                         var allSources = creep.room.find(FIND_SOURCES);
                         if(allSources.length > 1)
                         {
-                            // Choosing a random number between [100,200) and then modulus with number of sources
-                            var index = (100 + Math.floor(Math.random()*100))%allSources.length;
-                            source = allSources[index];
+                            for(var currSource of allSources)
+                            {
+                                source = currSource;
+                                // break the loop if no other miner associated with this source
+                                if((_.filter(explorers, (creep) => creep.memory.sourceId == currSource.id)).length == 0)
+                                    break;
+                            }
                             creep.memory.sourceId = source.id;
                         }
                         else if(allSources.length == 1)
@@ -148,6 +152,8 @@ var roleExplorer = {
         }
         else {
             creep.memory.collectorSourceId = undefined;
+            // Look for new random source. Just introducing randomness.
+            creep.memory.sourceId = undefined;
             if(creep.room != spawnRoom)
             {
                 var exitDir = Game.map.findExit(creep.room, spawnRoom);
@@ -164,7 +170,7 @@ var roleExplorer = {
                                 structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity) || 
                                 ((structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_EXTENSION) && structure.energy < structure.energyCapacity) ||
-                                (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity && config.receiverLinks.indexOf(structure.id) == -1);
+                                (structure.structureType == STRUCTURE_LINK && config.receiverLinks.indexOf(structure.id) == -1);
                     }
                 });
 
@@ -172,8 +178,6 @@ var roleExplorer = {
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
                     }
-                    // Look for new random source. Just introducing randomness.
-                    creep.memory.sourceId = undefined;
                     fContinue = false;
                 }
             }

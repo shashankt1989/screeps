@@ -17,18 +17,35 @@ var config = {
             "attack" : 1,
             "max" : 130
         },
+        "attacker" : {
+            "tough" : 1,
+            "move" : 2,
+            "attack" : 1,
+            "max" : 600
+        },
+        "dismantler" : {
+            "tough" : 1,
+            "move" : 2,
+            "work" : 1,
+            "max" : 420
+        },
+        "healer" : {
+
+        },
         "miner" : {
             "move" : 1,
-            "work" : 2 
+            "work" : 2,
+            "max" : 750 
         },
         "explorer" : {
             "move" : 1,
-            "carry" : 2
+            "carry" : 2,
+            "max" : 900
         },
         "provider" : {
             "move" : 1,
             "carry" : 1,
-            "max" : 100
+            "max" : 300
         },
         "repair" : {
             "move" : 1,
@@ -39,7 +56,8 @@ var config = {
         "builder" : {
             "move" : 1,
             "carry" : 1,
-            "work" : 1
+            "work" : 1,
+            "max" : 1000
         },
         "upgrader" : {
             "move" : 1,
@@ -48,7 +66,8 @@ var config = {
         },
         "claim" : {
             "claim" : 1,
-            "move" : 1
+            "move" : 1,
+            "max" : 650
         },
         "harvester" : {
             "move" : 1,
