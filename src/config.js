@@ -61,7 +61,7 @@ var config = {
         },
         "upgrader" : {
             "move" : 1,
-            "carry" : 2,
+            "carry" : 1,
             "work" : 2
         },
         "claim" : {
