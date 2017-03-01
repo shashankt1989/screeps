@@ -10,6 +10,7 @@ var roleMiner = require('role.miner');
 var roleClaim = require('role.claim');
 var roleProvider = require('role.provider');
 var roleDefender = require('role.defender');
+var roomDefense = require('room.defense');
 var config = require('config');
 
 
@@ -72,7 +73,9 @@ module.exports.loop = function () {
             spawnUtility.createCreep(currSpawn, 'harvester', currRoom.name);
             spawnCreeps = false;
         }
-        
+
+        // check defense of current spawn even if harvester was spawned.
+        spawnCreeps = spawnCreeps & roomDefense.spawnDefense(spawnName);
 
         // get current room miners as top priority
         var roles = ["miner","explorer","provider"];
@@ -84,21 +87,12 @@ module.exports.loop = function () {
             }
         }
 
-
-        // check if we need to defend any room, activate safe mode if unable to defend.
+        // check for defense of other unclaimed rooms mined from this spawn
         for(var room of rooms)
         {
-            if(!Game.rooms[room])
+            if(!spawnCreeps || !Game.rooms[room] || (Game.rooms[room] && Game.rooms[room].controller && Game.rooms[room].controller.owner && Game.rooms[room].controller.owner.username == config.selfUsername))
                 continue;
-
-            var hostiles = Game.rooms[room].find(FIND_HOSTILE_CREEPS);
-            var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == room);
-            if(spawnCreeps && hostiles.length > 0 && defenders.length < hostiles.length)
-            {
-                if(!spawnUtility.createCreep(currSpawn, "defender", room) && hostiles.length > 1)
-                    spawnUtility.activateSafeMode(Game.rooms[room]);
-                spawnCreeps = false;
-            }
+            spawnCreeps = roomDefense.miningDefense(currSpawn, room);
         }
 
 

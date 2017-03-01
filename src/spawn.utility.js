@@ -50,7 +50,6 @@ var spawnUtility = {
                 }
             }
         }
-            
     },
 
     createCreep: function(spawn,role,targetRoom) {
@@ -184,6 +183,12 @@ var spawnUtility = {
     activateSafeMode: function(room) {
         if(room && room.controller && room.controller.activateSafeMode())
             Game.notify("Activating safe mode in room - " + room.name, 0);
+    },
+
+    isSafeMode : function(room) {
+        if(room && room.controller && room.controller.safeMode && room.controller.safeMode > 0)
+            return true;
+        return false;
     }
 };
 

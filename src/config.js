@@ -1,21 +1,23 @@
 var config = {
     range : 10,
     harvesterCount : 1,
-    wallsMax : 300000,
-    wallsIncrement: 10000,
+    wallsMax : 1000000,
+    wallsIncrement: 1000,
     minCreepTicks : 75,
     directions : [TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,TOP_LEFT],
 
     receiverLinks : ["58b5a867215a75a42fe8272c"],
 
-    attackTargets : [],
+    attackTargets : ["58b25ad956fffb4764e37b1b"],
+
+    selfUsername : 'arzo',
 
     creepRoleConfigs: {
         "defender" : {
-            "tough" : 0,
+            "tough" : 2,
             "move" : 1,
             "attack" : 1,
-            "max" : 130
+            "max" : 600
         },
         "attacker" : {
             "tough" : 1,
