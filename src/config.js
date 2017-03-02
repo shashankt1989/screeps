@@ -92,8 +92,8 @@ var config = {
             },
             "W87S29" : {
                 "miner" : 1,
-                "claim" : 1,
-                "explorer" : 1
+                "explorer" : 1,
+                "builder" : 1
             }
         },
         "W89S29" : {
@@ -107,7 +107,8 @@ var config = {
             },
             "W89S28" : {
                 "miner" : 1,
-                "explorer" : 1
+                "explorer" : 1,
+                "builder" : 1
             }
         }
     }
