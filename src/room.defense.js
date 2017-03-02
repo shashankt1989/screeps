@@ -5,18 +5,19 @@ var roomDefense = {
     // return value indicated whether its safe to spawn other creeps or not.
     spawnDefense: function(spawnName) {
         // check for hostile invader creeps and create new defenders
-        var spawn = Game.rooms[spawnName];
+        var spawn = Game.spawns[spawnName];
+        var spawnRoom = spawn.room;
         if(spawnUtility.isSafeMode(spawn))
             return true;
-        var hostiles = spawn.find(FIND_HOSTILE_CREEPS, {
+        var hostiles = spawnRoom.find(FIND_HOSTILE_CREEPS, {
                 filter: (creep) => {
                     return creep.owner != "Invader" && (creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0)
                 }
             });
-        var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == spawnName);
+        var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == spawnRoom.name);
         if(hostiles.length > 0 && defenders.length < hostiles.length)
         {
-            if(!spawnUtility.createCreep(spawn, "defender", spawnName) && hostiles.length > 2)
+            if(!spawnUtility.createCreep(spawn, "defender", spawnRoom.name) && hostiles.length > 2)
                 spawnUtility.activateSafeMode();
             return false;
         }
