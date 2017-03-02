@@ -25,7 +25,7 @@ var roleRepair = {
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            creep.moveTo(exit, {maxRooms : 1});
             fContinue = false;
         }
 
@@ -178,7 +178,7 @@ var roleRepair = {
         // Nothing to do
         if(fContinue && Game.flags[creep.pos.roomName])
         {
-            creep.moveTo(Game.flags[creep.pos.roomName]);
+            creep.moveTo(Game.flags[creep.pos.roomName], {maxRooms : 1});
         }
     }
 };

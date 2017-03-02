@@ -8,7 +8,7 @@ var roleUpgrader = {
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            creep.moveTo(exit, {maxRooms : 1});
             fContinue = false;
         }
 
@@ -25,7 +25,7 @@ var roleUpgrader = {
             if(creep.memory.upgrading) {
                 creep.memory.mining = false;
                 if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#0000ff'}});
+                    creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#0000ff'}, maxRooms : 1});
                 }
             }
             else {
@@ -38,14 +38,14 @@ var roleUpgrader = {
                     });
                 if(target) {
                     if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms : 1});
                     }
                 }
                 else {
                     // out of energy in storage. mine from a source
                     var source = creep.pos.findClosestByRange(FIND_SOURCES, {filter: (source) => {return source.energy > 0}});
                     if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}, maxRooms : 1});
                     }
                 }
             }

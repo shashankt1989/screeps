@@ -5,7 +5,7 @@ var roleDefender = {
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            creep.moveTo(exit,{maxRooms : 1});
             fContinue = false;
         }
 
@@ -15,7 +15,7 @@ var roleDefender = {
             if(target)
             {
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                    creep.moveTo(target,{maxRooms : 1});
                 }
                 fContinue = false;
             }
@@ -27,7 +27,7 @@ var roleDefender = {
             if(target)
             {
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                    creep.moveTo(target,{maxRooms : 1});
                 }
                 fContinue = false;
             }

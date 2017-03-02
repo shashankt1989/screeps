@@ -17,7 +17,7 @@ var roleExplorer = {
             {
                 var exitDir = Game.map.findExit(creep.room, targetRoom);
                 var exit = creep.pos.findClosestByRange(exitDir);
-                creep.moveTo(exit);
+                creep.moveTo(exit, {maxRooms : 1});
                 creep.memory.sourceId = undefined;
                 fContinue = false;
             }
@@ -30,7 +30,7 @@ var roleExplorer = {
                 if(target)
                 {
                     if(creep.withdraw(target,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#00aa00'}});
+                        creep.moveTo(target, {visualizePathStyle: {stroke: '#00aa00'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -44,7 +44,7 @@ var roleExplorer = {
                 if(targets.length > 0)
                 {
                     if(creep.withdraw(targets[0],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}});
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00aa00'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -57,7 +57,7 @@ var roleExplorer = {
                 {
                     var droppedRes = Game.getObjectById(creep.memory.collectorSourceId);
                     if(creep.pickup(droppedRes) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(droppedRes, {visualizePathStyle: {stroke: '#ff0000'}});
+                        creep.moveTo(droppedRes, {visualizePathStyle: {stroke: '#ff0000'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -132,18 +132,18 @@ var roleExplorer = {
                         {
                             creep.memory.collectorSourceId = droppedRes[0].id; 
                             if(creep.pickup(droppedRes[0]) == ERR_NOT_IN_RANGE) {
-                                creep.moveTo(droppedRes[0], {visualizePathStyle: {stroke: '#ff0000'}});
+                                creep.moveTo(droppedRes[0], {visualizePathStyle: {stroke: '#ff0000'}, maxRooms : 1});
                             }
                         }
                         else
                         {
-                            creep.moveTo(source);
+                            creep.moveTo(source, {maxRooms : 1});
                         }
                     }
                     // just move towards the source
                     else
                     {
-                        creep.moveTo(source);
+                        creep.moveTo(source, {maxRooms : 1});
                     }
 
                     fContinue = false;
@@ -158,7 +158,7 @@ var roleExplorer = {
             {
                 var exitDir = Game.map.findExit(creep.room, spawnRoom);
                 var exit = creep.pos.findClosestByRange(exitDir);
-                creep.moveTo(exit);
+                creep.moveTo(exit, {maxRooms : 1});
                 fContinue = false;
             }
             else
@@ -176,7 +176,7 @@ var roleExplorer = {
 
                 if(target) {
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
+                        creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -186,7 +186,7 @@ var roleExplorer = {
         // Nothing to do
         if(fContinue && Game.flags[creep.pos.roomName])
         {
-            creep.moveTo(Game.flags[creep.pos.roomName]);
+            creep.moveTo(Game.flags[creep.pos.roomName], {maxRooms : 1});
         }
     }
 };

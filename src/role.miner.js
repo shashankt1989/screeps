@@ -13,7 +13,7 @@ var roleMiner = {
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            creep.moveTo(exit, {maxRooms : 1});
         }
         else
         {
@@ -61,7 +61,7 @@ var roleMiner = {
                 }
             }
             if(source && creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}});
+                creep.moveTo(source, {visualizePathStyle: {stroke: '#00aa00'}, maxRooms : 1});
             }
         }
     }

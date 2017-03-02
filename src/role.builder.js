@@ -7,7 +7,7 @@ var roleBuilder = {
         {
             var exitDir = Game.map.findExit(creep.room, creep.memory.targetRoom);
             var exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            creep.moveTo(exit, {maxRooms : 1});
         }
         else
         {

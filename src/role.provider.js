@@ -18,14 +18,14 @@ var roleProvider = {
             if(source)
             {
                 if(creep.withdraw(source,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(source);
+                    creep.moveTo(source, {maxRooms : 1});
                 }
             }
             else
             {
                 if(Game.flags[creep.pos.roomName])
                 {
-                    creep.moveTo(Game.flags[creep.pos.roomName]);
+                    creep.moveTo(Game.flags[creep.pos.roomName], {maxRooms : 1});
                 }
             }
         }
@@ -38,14 +38,14 @@ var roleProvider = {
             });
             if(target) {
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}, maxRooms : 1});
                 }
             }
             else
             {
                 if(Game.flags[creep.pos.roomName])
                 {
-                    creep.moveTo(Game.flags[creep.pos.roomName]);
+                    creep.moveTo(Game.flags[creep.pos.roomName], {maxRooms : 1});
                 }
             }
         }

@@ -18,7 +18,7 @@ var roleHarvester = {
                 if(source)
                 {
                     if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}});
+                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ff0000'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -29,7 +29,7 @@ var roleHarvester = {
                 if(source)
                 {
                     if(creep.withdraw(source,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source);
+                        creep.moveTo(source, {maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -46,7 +46,7 @@ var roleHarvester = {
                 }});
                 if(target) {
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}});
+                        creep.moveTo(target, {visualizePathStyle: {stroke: '#aa0000'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -56,7 +56,7 @@ var roleHarvester = {
                 var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_STORAGE}});
                 if(targets.length > 0) {
                     if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#aa0000'}});
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#aa0000'}, maxRooms : 1});
                     }
                     fContinue = false;
                 }
@@ -66,7 +66,7 @@ var roleHarvester = {
         // Nothing to do - either no sources or no structures to fill
         if(fContinue && Game.flags[creep.pos.roomName])
         {
-            creep.moveTo(Game.flags[creep.pos.roomName]);
+            creep.moveTo(Game.flags[creep.pos.roomName], {maxRooms : 1});
         }
     }
 };
