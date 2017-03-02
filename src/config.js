@@ -51,9 +51,9 @@ var config = {
         },
         "repair" : {
             "move" : 1,
-            "carry" : 2,
-            "work" : 2,
-            "max" : 350
+            "carry" : 1,
+            "work" : 1,
+            "max" : 400
         },
         "builder" : {
             "move" : 1,
@@ -64,7 +64,7 @@ var config = {
         "upgrader" : {
             "move" : 1,
             "carry" : 1,
-            "work" : 2
+            "work" : 3
         },
         "claim" : {
             "claim" : 1,
