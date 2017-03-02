@@ -104,6 +104,10 @@ var config = {
                 "upgrader" : 3,
                 "builder" : 2,
                 "explorer" : 2
+            },
+            "W89S28" : {
+                "miner" : 1,
+                "explorer" : 1
             }
         }
     }
