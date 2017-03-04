@@ -15,9 +15,9 @@ var config = {
     creepRoleConfigs: {
         "defender" : {
             "tough" : 2,
-            "move" : 1,
+            "move" : 3,
             "attack" : 1,
-            "max" : 600
+            "max" : 750
         },
         "attacker" : {
             "tough" : 1,
@@ -64,7 +64,8 @@ var config = {
         "upgrader" : {
             "move" : 1,
             "carry" : 1,
-            "work" : 3
+            "work" : 3,
+            "max" : 1200
         },
         "claim" : {
             "claim" : 1,
@@ -86,8 +87,8 @@ var config = {
                 "miner" : 2,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 2,
-                "builder" : 2,
+                "upgrader" : 1,
+                "builder" : 1,
                 "explorer" : 2
             },
             "W87S29" : {
@@ -101,7 +102,7 @@ var config = {
                 "miner" : 2,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 3,
+                "upgrader" : 1,
                 "builder" : 2,
                 "explorer" : 2
             },
