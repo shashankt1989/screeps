@@ -11,7 +11,7 @@ var roomDefense = {
             return true;
         var hostiles = spawnRoom.find(FIND_HOSTILE_CREEPS, {
                 filter: (creep) => {
-                    return creep.owner != "Invader" && (creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0)
+                    return (creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0 || creep.getActiveBodyparts(HEAL) > 0)
                 }
             });
         var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == spawnRoom.name);
@@ -28,7 +28,7 @@ var roomDefense = {
         // check for hostile invader creeps
         var hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS, {
             filter: (creep) => {
-                return creep.owner != "Invader" && (creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0)
+                return (creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0 || creep.getActiveBodyparts(HEAL) > 0)
             }
         });
         var defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender' && creep.memory.targetRoom == roomName);

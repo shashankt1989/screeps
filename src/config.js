@@ -14,16 +14,16 @@ var config = {
 
     creepRoleConfigs: {
         "defender" : {
-            "tough" : 2,
-            "move" : 3,
+            "tough" : 3,
+            "move" : 2,
             "attack" : 1,
-            "max" : 750
+            "max" : 640
         },
         "attacker" : {
             "tough" : 1,
             "move" : 2,
             "attack" : 1,
-            "max" : 600
+            "max" : 950
         },
         "dismantler" : {
             "tough" : 1,
