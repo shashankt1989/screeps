@@ -87,7 +87,7 @@ var config = {
                 "miner" : 2,
                 "provider" : 1,
                 "repair" : 1,
-                "upgrader" : 1,
+                "upgrader" : 2,
                 "builder" : 1,
                 "explorer" : 2
             },
